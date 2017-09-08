@@ -1,0 +1,15 @@
+/* Login page styles start */
+.login-btn{
+    width: 100%;
+}
+.wrong-loggin{
+    background-color: #ff4444 !important;
+    padding: 10px !important;
+    color: #fff;
+    font-size: 16px;
+}
+
+.wrong-loggin > i{
+vertical-align: bottom;
+}
+/* Login page styles end */
