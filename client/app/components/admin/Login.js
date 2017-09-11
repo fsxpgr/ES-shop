@@ -83,17 +83,17 @@ class LoginForm extends React.Component {
                     value={this.state.password}
                     onChange={this.onChange}
                     type="password"
-                    name="password" 
-                    required/>
+                    name="password"
+                    required />
                   <label>Password</label>
                 </div>
 
                 {badErrors && <div className="mui-panel mui--text-subhead mui--text-center wrong-loggin mui--z2"><i class="material-icons">warning </i> <span>Wrong email or password!</span></div>}
-                
-                  <button disabled={this.state.isLoading} className="mui-btn mui-btn--large mui-btn--primary mui-btn--raised login-btn" >
+
+                <button disabled={this.state.isLoading} className="mui-btn mui-btn--large mui-btn--primary mui-btn--raised login-btn" >
                   Log in
                   </button>
-              
+
               </form>
 
             </div>

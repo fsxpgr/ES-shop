@@ -62,7 +62,7 @@ export default class Create extends React.Component {
             { var qq = true }
             else
             { var s = data.properties.length - 1; qq = (data.properties[s].name !== ss) }
-        //всем костылям костыль конец
+            //всем костылям костыль конец
             if (qq) {
                 data.properties.push(obj)
                 if (this.props.location.state) {
@@ -75,14 +75,14 @@ export default class Create extends React.Component {
                         properties: data.properties,
                         accessible: this.state.accessible || false,
                     })
-                        .then(function (response) {
+                        .then(response => {
                             that.setState({ loading: true }, () => {
                                 that.componentWillMount();
                             });
                         })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                        .catch(error => 
+                            console.log(error)
+                        );
                 }
                 else {
                     axios.post('/admin/product', {
@@ -104,9 +104,9 @@ export default class Create extends React.Component {
                                 that.componentWillMount();
                             });
                         })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
+                        .catch(error =>
+                            console.log(error)
+                        );
                 }
             }
         }
@@ -129,14 +129,14 @@ export default class Create extends React.Component {
             properties: data.properties,
             accessible: this.state.accessible || false,
         })
-            .then(function (response) {
+            .then(response =>
                 that.setState({ loading: true }, () => {
-                    that.componentWillMount();
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                    that.componentWillMount()}
+                )
+            )
+            .catch(error =>
+                console.log(error)
+            );
     }
 
     handleOptionChange(e) {
@@ -156,12 +156,12 @@ export default class Create extends React.Component {
                 properties: data.properties,
                 accessible: this.state.accessible || false,
             })
-                .then(function (response) {
-                    browserHistory.push("/admin/list");
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                .then(response => 
+                    browserHistory.push("/admin/list")
+                )
+                .catch(error =>
+                    console.log(error)
+                );
         }
         else {
             axios.post('/admin/product', {
@@ -173,12 +173,12 @@ export default class Create extends React.Component {
                 properties: data.properties,
                 accessible: this.state.accessible || false,
             })
-                .then(function (response) {
-                    browserHistory.push("admin/list");
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                .then(response =>
+                    browserHistory.push("admin/list")
+                )
+                .catch(error =>
+                    console.log(error)
+                );
         }
     }
 
@@ -207,24 +207,26 @@ export default class Create extends React.Component {
                     that.state.data.img = img.concat(response.data)
                     that.setState({ img, file: '' })
                     document.getElementById("Upload").reset(); //hardcode??
-                }).catch(function (error) {
-                    console.log(error);
-                });
-        }
-    }
-
-    getInitialState() {
-        if (!this.props.isAuth) {
-            browserHistory.push('/admin/login');
-            return;
+                }).catch(error =>
+                    console.log(error)
+                );
         }
     }
 
     componentWillMount() {
+        //*isLogged*//
+        axios.post('/').then(response => {
+            if (response.data.Logged === false) {
+                browserHistory.push('/admin/login')
+            }
+        })
+        //*isLogged*//
+
         if (this.props.location.state) {
             axios.get('/admin/product/' + this.props.location.state)
-                .then(response =>
-                    this.setState({ file: '', data: response.data, loading: false }));
+                .then(response => {
+                    this.setState({ file: '', data: response.data, loading: false })
+                });
         }
         else {
             this.setState({ file: '', data: { properties: [], tags: [], img: [], accessible: false }, loading: false });
@@ -250,17 +252,19 @@ export default class Create extends React.Component {
                                             <input
                                                 defaultValue={data.title}
                                                 onChange={(e) => { this.handleChange(e, "title") }}
+                                                pattern="^.{0,50}$"
                                                 required />
                                             <label>Title</label>
                                         </div>
 
                                         <div className="mui-textfield large-input text-area">
                                             <textarea
-                                            className="text-area"
+                                                className="text-area"
                                                 type="textarea"
                                                 name="desc"
                                                 defaultValue={data.desc}
                                                 onChange={(e) => { this.handleChange(e, "desc") }}
+                                                pattern="^.{0,300}$"
                                                 required />
                                             <label>Description</label>
                                         </div>
@@ -271,6 +275,8 @@ export default class Create extends React.Component {
                                                 thousandSeparator=" "
                                                 decimalSeparator="."
                                                 decimalPrecision="2"
+                                                allowNegative='false'
+                                                pattern="^.{0,15}$"
                                                 type="text"
                                                 name="price"
                                                 value={(data.price / 100).toFixed(2)}

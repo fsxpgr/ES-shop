@@ -27474,11 +27474,13 @@
 	    _createClass(Admin, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
+	            //*isLogged*//
 	            _axios2.default.post('/').then(function (response) {
 	                if (response.data.Logged === false) {
 	                    _reactRouter.browserHistory.push('/admin/login');
 	                }
 	            });
+	            //*isLogged*//
 	        }
 	    }, {
 	        key: 'render',
@@ -29882,7 +29884,7 @@
 	                                that.componentWillMount();
 	                            });
 	                        }).catch(function (error) {
-	                            console.log(error);
+	                            return console.log(error);
 	                        });
 	                    } else {
 	                        _axios2.default.post('/admin/product', {
@@ -29903,7 +29905,7 @@
 	                                that.componentWillMount();
 	                            });
 	                        }).catch(function (error) {
-	                            console.log(error);
+	                            return console.log(error);
 	                        });
 	                    }
 	                }
@@ -29928,11 +29930,11 @@
 	                properties: data.properties,
 	                accessible: this.state.accessible || false
 	            }).then(function (response) {
-	                that.setState({ loading: true }, function () {
+	                return that.setState({ loading: true }, function () {
 	                    that.componentWillMount();
 	                });
 	            }).catch(function (error) {
-	                console.log(error);
+	                return console.log(error);
 	            });
 	        }
 	    }, {
@@ -29955,9 +29957,9 @@
 	                    properties: data.properties,
 	                    accessible: this.state.accessible || false
 	                }).then(function (response) {
-	                    _reactRouter.browserHistory.push("/admin/list");
+	                    return _reactRouter.browserHistory.push("/admin/list");
 	                }).catch(function (error) {
-	                    console.log(error);
+	                    return console.log(error);
 	                });
 	            } else {
 	                _axios2.default.post('/admin/product', {
@@ -29969,9 +29971,9 @@
 	                    properties: data.properties,
 	                    accessible: this.state.accessible || false
 	                }).then(function (response) {
-	                    _reactRouter.browserHistory.push("admin/list");
+	                    return _reactRouter.browserHistory.push("admin/list");
 	                }).catch(function (error) {
-	                    console.log(error);
+	                    return console.log(error);
 	                });
 	            }
 	        }
@@ -30005,16 +30007,8 @@
 	                    that.setState({ img: img, file: '' });
 	                    document.getElementById("Upload").reset(); //hardcode??
 	                }).catch(function (error) {
-	                    console.log(error);
+	                    return console.log(error);
 	                });
-	            }
-	        }
-	    }, {
-	        key: 'getInitialState',
-	        value: function getInitialState() {
-	            if (!this.props.isAuth) {
-	                _reactRouter.browserHistory.push('/admin/login');
-	                return;
 	            }
 	        }
 	    }, {
@@ -30022,9 +30016,17 @@
 	        value: function componentWillMount() {
 	            var _this3 = this;
 
+	            //*isLogged*//
+	            _axios2.default.post('/').then(function (response) {
+	                if (response.data.Logged === false) {
+	                    _reactRouter.browserHistory.push('/admin/login');
+	                }
+	            });
+	            //*isLogged*//
+
 	            if (this.props.location.state) {
 	                _axios2.default.get('/admin/product/' + this.props.location.state).then(function (response) {
-	                    return _this3.setState({ file: '', data: response.data, loading: false });
+	                    _this3.setState({ file: '', data: response.data, loading: false });
 	                });
 	            } else {
 	                this.setState({ file: '', data: { properties: [], tags: [], img: [], accessible: false }, loading: false });
@@ -30068,6 +30070,7 @@
 	                                            onChange: function onChange(e) {
 	                                                _this4.handleChange(e, "title");
 	                                            },
+	                                            pattern: '^.{0,50}$',
 	                                            required: true }),
 	                                        _react2.default.createElement(
 	                                            'label',
@@ -30086,6 +30089,7 @@
 	                                            onChange: function onChange(e) {
 	                                                _this4.handleChange(e, "desc");
 	                                            },
+	                                            pattern: '^.{0,300}$',
 	                                            required: true }),
 	                                        _react2.default.createElement(
 	                                            'label',
@@ -30101,6 +30105,8 @@
 	                                            thousandSeparator: ' ',
 	                                            decimalSeparator: '.',
 	                                            decimalPrecision: '2',
+	                                            allowNegative: 'false',
+	                                            pattern: '^.{0,15}$',
 	                                            type: 'text',
 	                                            name: 'price',
 	                                            value: (data.price / 100).toFixed(2),
@@ -31668,7 +31674,7 @@
 
 
 	// module
-	exports.push([module.id, "\r\n/* Switch button start */\r\n.switch{\r\n    text-align: center !important;\r\n}\r\n.btn-switch {\r\n  font-size: 15px;\r\n\tposition: relative;\r\n\tdisplay: inline-block;\t\t\r\n\t-webkit-user-select: none;\r\n\t-moz-user-select: none;\r\n\t-ms-user-select: none;\r\n    user-select: none;\r\n    text-align: center;\r\n}\r\n.btn-switch__radio {\r\n\tdisplay: none;\r\n}\r\n.btn-switch__label {\r\n\tdisplay: inline-block;\t\r\n\tpadding: .75em .5em .5em .75em;\r\n\tvertical-align: top;\r\n\tfont-size: 1em;\r\n\tfont-weight: 700;\r\n\tline-height: 1.5;\r\n\tcolor: #666;\r\n  cursor: pointer;\r\n\ttransition: color .2s ease-in-out;\r\n}\r\n.btn-switch__label + .btn-switch__label {\r\n  padding-right: .75em;\r\n\tpadding-left: 0;\r\n\r\n}\r\n.btn-switch__txt {\r\n\tposition: relative;\r\n\tz-index: 2;\r\n  display: inline-block;\r\n   min-width: 1.5em;\r\n\topacity: 1;\r\n\tpointer-events: none;\r\n\ttransition: opacity .2s ease-in-out;\r\n}\r\n.btn-switch__radio_no:checked ~ .btn-switch__label_yes .btn-switch__txt,\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_no .btn-switch__txt {\r\n\topacity: 0;\r\n}\r\n.btn-switch__label:before {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tz-index: -1;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: #f0f0f0;\r\n\tborder-radius: 1.5em;\r\n\tbox-shadow: inset 0 .0715em .3572em rgba(43,43,43,.05);\r\n\ttransition: background .2s ease-in-out;\r\n}\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label:before {\r\n\tbackground: #6ad500;\r\n}\r\n.btn-switch__label_no:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tz-index: 2;\r\n\ttop: .5em;\r\n\tbottom: .5em;\r\n\tleft: .5em;\r\n\twidth: 2em;\r\n\tbackground: #fff;\r\n\tborder-radius: 1em;\t\r\n\tpointer-events: none;\r\n\tbox-shadow: 0 .1429em .2143em rgba(43,43,43,.2), 0 .3572em .3572em rgba(43,43,43,.1);\r\n\ttransition: left .2s ease-in-out, background .2s ease-in-out;\r\n}\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_no:after {\r\n\tleft: calc(100% - 2.5em);\r\n\tbackground: #fff;\r\n}\r\n.btn-switch__radio_no:checked ~ .btn-switch__label_yes:before,\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_no:before {\r\n\tz-index: 1;\r\n}\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_yes {\r\n\tcolor: #fff;\r\n}\r\n/* Switch button end */\r\n\r\n/* Create button start */\r\n.key-name{\r\n    width:230px !important;\r\n    margin-right:10px !important;\r\n}\r\n.key-value{\r\n    width:510px !important;\r\n    margin: 0 10px !important;\r\n}\r\n.key-btn{\r\n\twidth:100px !important;\r\n\tpadding: 0 10px !important;\r\n}\r\n.key-S3{\r\n\t\twidth:200px !important;\r\n\t\tpadding: 0 10px !important;\r\n}\r\n.submit-btn{\r\n    padding: 0px 350px !important;\r\n}\r\n/* Create button end */\r\n\r\n/*Tags-input start  */\r\n.react-tagsinput {\r\n  background-color: #fff;\r\n  border: 1px solid #ccc;\r\n  overflow: hidden;\r\n  padding-left: 5px;\r\n\tpadding-top: 5px;\r\n\tmargin-bottom: 20px;\r\n}\r\n\r\n.react-tagsinput--focused {\r\n  border: 2px solid #2196F3;\r\n}\r\n\r\n.react-tagsinput-tag {\r\n  background-color: #EEEEEE;\r\n  border-radius: 2px;\r\n  border: 2px solid #3EA3F4;\r\n  color: #1F1F1F;\r\n  display: inline-block;\r\n  font-family: inherit;\r\n  font-size: 20px;\r\n  font-weight: 400;\r\n  margin-bottom: 5px;\r\n  margin-right: 5px;\r\n  padding: 5px;\r\n}\r\n\r\n.react-tagsinput-remove {\r\n  cursor: pointer;\r\n  font-weight: bold;\r\n}\r\n\r\n.react-tagsinput-tag a::before {\r\n  content: \" \\D7\";\r\n}\r\n\r\n.react-tagsinput-input {\r\n  background: transparent;\r\n  border: 0;\r\n  color: #1F1F1F;\r\n  font-family: inherit;\r\n  font-size: 22px;\r\n  font-weight: 400;\r\n  margin-bottom: 6px;\r\n  margin-top: 1px;\r\n  outline: none;\r\n  padding: 5px;\r\n  width: 150px;\r\n}\r\n/*Tags-input end  */\r\n\r\n/*Loaded images start */\r\n.img-block{\r\n\t-webkit-box-orient: horizontal;\r\n\t-webkit-box-direction: normal;\r\n\t    -ms-flex-direction: row;\r\n\t        flex-direction: row;\r\n\t-ms-flex-pack: distribute;\r\n\t    justify-content: space-around;\r\n}\r\n\r\n.img-block-item { \r\n\tdisplay: -webkit-inline-box; \r\n\tdisplay: -ms-inline-flexbox; \r\n\tdisplay: inline-flex;\r\n}\r\n.img-block-item > img { \r\n\tmargin:10px;\r\n\theight: 150px; \r\n\tbox-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.12);\r\n\tbackground-color:#EEEEEE; height: 150px; width: 150px; color:black;\r\n}\r\n/*Loaded images end */\r\n\r\n\r\n.large-input > input, \r\n.large-input > textarea{\r\n    font-size: 22px !important;\r\n} \r\n\r\n\r\ninput, label {\r\n    display: block;\r\n}\r\n\r\ninput[type=file]::-webkit-file-upload-button {\r\n    font-family: Roboto !important;\r\n    font-size: 14px !important;\r\n\tfont-weight: 500 !important;\r\n    text-transform: uppercase;\r\n    transition: all 0.2s ease-in-out;\r\n    height: 36px;\r\n    padding: 0 26px;\r\n    margin: 6px 0;\r\n    border: none;\r\n    border-radius: 2px;\r\n    cursor: pointer;\r\n    -ms-touch-action: manipulation;\r\n    touch-action: manipulation;\r\n    background-image: none;\r\n    text-align: center;\r\n    line-height: 36px;\r\n    vertical-align: middle;\r\n    white-space: nowrap;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    font-size: 14px;\r\n    font-family: inherit;\r\n    letter-spacing: 0.03em;\r\n    position: relative;\r\n\toverflow: hidden;\r\n\tcolor: #FFF;\r\n\tbackground-color: #2196F3;\r\n\r\n}\r\n\r\n#Upload{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\tfont-size: 18px;\r\n\tfont-family: Roboto !important;\r\n\tfont-weight: 500 !important;\r\n}\r\n\r\n.text-area{\r\n  max-width: 100% !important;\r\n  max-height: 150px !important;\r\n  min-width: 100% !important;\r\n}", ""]);
+	exports.push([module.id, "\r\n/* Switch button start */\r\n.switch{\r\n    text-align: center !important;\r\n}\r\n.btn-switch {\r\n  font-size: 15px;\r\n\tposition: relative;\r\n\tdisplay: inline-block;\t\t\r\n\t-webkit-user-select: none;\r\n\t-moz-user-select: none;\r\n\t-ms-user-select: none;\r\n    user-select: none;\r\n    text-align: center;\r\n}\r\n.btn-switch__radio {\r\n\tdisplay: none;\r\n}\r\n.btn-switch__label {\r\n\tdisplay: inline-block;\t\r\n\tpadding: .75em .5em .5em .75em;\r\n\tvertical-align: top;\r\n\tfont-size: 1em;\r\n\tfont-weight: 700;\r\n\tline-height: 1.5;\r\n\tcolor: #666;\r\n  cursor: pointer;\r\n\ttransition: color .2s ease-in-out;\r\n}\r\n.btn-switch__label + .btn-switch__label {\r\n  padding-right: .75em;\r\n\tpadding-left: 0;\r\n\r\n}\r\n.btn-switch__txt {\r\n\tposition: relative;\r\n\tz-index: 2;\r\n  display: inline-block;\r\n   min-width: 1.5em;\r\n\topacity: 1;\r\n\tpointer-events: none;\r\n\ttransition: opacity .2s ease-in-out;\r\n}\r\n.btn-switch__radio_no:checked ~ .btn-switch__label_yes .btn-switch__txt,\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_no .btn-switch__txt {\r\n\topacity: 0;\r\n}\r\n.btn-switch__label:before {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tz-index: -1;\r\n\ttop: 0;\r\n\tright: 0;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: #f0f0f0;\r\n\tborder-radius: 1.5em;\r\n\tbox-shadow: inset 0 .0715em .3572em rgba(43,43,43,.05);\r\n\ttransition: background .2s ease-in-out;\r\n}\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label:before {\r\n\tbackground: #6ad500;\r\n}\r\n.btn-switch__label_no:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tz-index: 2;\r\n\ttop: .5em;\r\n\tbottom: .5em;\r\n\tleft: .5em;\r\n\twidth: 2em;\r\n\tbackground: #fff;\r\n\tborder-radius: 1em;\t\r\n\tpointer-events: none;\r\n\tbox-shadow: 0 .1429em .2143em rgba(43,43,43,.2), 0 .3572em .3572em rgba(43,43,43,.1);\r\n\ttransition: left .2s ease-in-out, background .2s ease-in-out;\r\n}\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_no:after {\r\n\tleft: calc(100% - 2.5em);\r\n\tbackground: #fff;\r\n}\r\n.btn-switch__radio_no:checked ~ .btn-switch__label_yes:before,\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_no:before {\r\n\tz-index: 1;\r\n}\r\n.btn-switch__radio_yes:checked ~ .btn-switch__label_yes {\r\n\tcolor: #fff;\r\n}\r\n/* Switch button end */\r\n\r\n/* Create button start */\r\n.key-name{\r\n    width:230px !important;\r\n    margin-right:10px !important;\r\n}\r\n.key-value{\r\n    width:510px !important;\r\n    margin: 0 10px !important;\r\n}\r\n.key-btn{\r\n\twidth:100px !important;\r\n\tpadding: 0 10px !important;\r\n}\r\n.key-S3{\r\n\t\twidth:200px !important;\r\n\t\tpadding: 0 10px !important;\r\n}\r\n.submit-btn{\r\n    padding: 0px 350px !important;\r\n}\r\n/* Create button end */\r\n\r\n/*Tags-input start  */\r\n.react-tagsinput {\r\n  background-color: #fff;\r\n  border: 1px solid #ccc;\r\n  overflow: hidden;\r\n  padding-left: 5px;\r\n\tpadding-top: 5px;\r\n\tmargin-bottom: 20px;\r\n}\r\n\r\n.react-tagsinput--focused {\r\n  border: 2px solid #2196F3;\r\n}\r\n\r\n.react-tagsinput-tag {\r\n  background-color: #EEEEEE;\r\n  border-radius: 2px;\r\n  border: 2px solid #3EA3F4;\r\n  color: #1F1F1F;\r\n  display: inline-block;\r\n  font-family: inherit;\r\n  font-size: 20px;\r\n  font-weight: 400;\r\n  margin-bottom: 5px;\r\n  margin-right: 5px;\r\n  padding: 5px;\r\n}\r\n\r\n.react-tagsinput-remove {\r\n  cursor: pointer;\r\n  font-weight: bold;\r\n}\r\n\r\n.react-tagsinput-tag a::before {\r\n  content: \" \\D7\";\r\n}\r\n\r\n.react-tagsinput-input {\r\n  background: transparent;\r\n  border: 0;\r\n  color: #1F1F1F;\r\n  font-family: inherit;\r\n  font-size: 22px;\r\n  font-weight: 400;\r\n  margin-bottom: 6px;\r\n  margin-top: 1px;\r\n  outline: none;\r\n  padding: 5px;\r\n  width: 150px;\r\n}\r\n/*Tags-input end  */\r\n\r\n/*Loaded images start */\r\n.img-block{\r\n\t-webkit-box-orient: horizontal;\r\n\t-webkit-box-direction: normal;\r\n\t    -ms-flex-direction: row;\r\n\t        flex-direction: row;\r\n\t-ms-flex-pack: distribute;\r\n\t    justify-content: space-around;\r\n}\r\n\r\n.img-block-item { \r\n\tdisplay: -webkit-inline-box; \r\n\tdisplay: -ms-inline-flexbox; \r\n\tdisplay: inline-flex;\r\n}\r\n.img-block-item > img { \r\n\tmargin:10px;\r\n\theight: 150px; \r\n\tbox-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.12);\r\n\tbackground-color:#EEEEEE; height: 150px; width: 150px; color:black;\r\n}\r\n/*Loaded images end */\r\n\r\n\r\n.large-input > input, \r\n.large-input > textarea{\r\n    font-size: 22px !important;\r\n} \r\n\r\n\r\ninput, label {\r\n    display: block;\r\n}\r\n\r\ninput[type=file]::-webkit-file-upload-button {\r\n    font-family: Roboto !important;\r\n    font-size: 14px !important;\r\n\tfont-weight: 500 !important;\r\n    text-transform: uppercase;\r\n    transition: all 0.2s ease-in-out;\r\n    height: 36px;\r\n    padding: 0 26px;\r\n    margin: 6px 0;\r\n    border: none;\r\n    border-radius: 2px;\r\n    cursor: pointer;\r\n    -ms-touch-action: manipulation;\r\n    touch-action: manipulation;\r\n    background-image: none;\r\n    text-align: center;\r\n    line-height: 36px;\r\n    vertical-align: middle;\r\n    white-space: nowrap;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    font-size: 14px;\r\n    font-family: inherit;\r\n    letter-spacing: 0.03em;\r\n    position: relative;\r\n\toverflow: hidden;\r\n\tcolor: #FFF;\r\n\tbackground-color: #2196F3;\r\n}\r\n\r\n#Upload{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n\tfont-size: 18px;\r\n\tfont-family: Roboto !important;\r\n\tfont-weight: 500 !important;\r\n}\r\n\r\n.text-area{\r\n  max-width: 100% !important;\r\n  max-height: 150px !important;\r\n  min-width: 100% !important;\r\n}", ""]);
 
 	// exports
 
@@ -31764,7 +31770,7 @@
 
 
 	// module
-	exports.push([module.id, ".spinner {\r\ndisplay: inline-block;\r\n  width: 350px;\r\n  height: 350px;\r\n  border-radius: 50%;\r\n  border: 15px solid transparent;\r\n  border-top-color: #3498db;\r\n  -webkit-animation: spin 1.5s linear infinite;\r\n          animation: spin 1.5s linear infinite;\r\n  z-index: 100;\r\n  opacity: 0.8;\r\n  margin: 150px 0;\r\n}\r\n\r\n.spinner::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 5px;\r\n  left: 5px;\r\n  right: 5px;\r\n  bottom: 5px;\r\n  border-radius: 50%;\r\n  border: 15px solid transparent;\r\n  border-top-color: #e74c3c;\r\n  -webkit-animation: spin 3s linear infinite;\r\n          animation: spin 3s linear infinite;\r\n}\r\n\r\n.spinner::after {\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 15px;\r\n  left: 15px;\r\n  right: 15px;\r\n  bottom: 15px;\r\n  border-radius: 50%;\r\n  border: 15px solid transparent;\r\n  border-top-color: #f9c922;\r\n  -webkit-animation: spin 1.5s linear infinite;\r\n          animation: spin 1.5s linear infinite;\r\n}\r\n\r\n@-webkit-keyframes spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n", ""]);
+	exports.push([module.id, ".spinner {\r\ndisplay: inline-block;\r\n  width: 350px;\r\n  height: 350px;\r\n  border-radius: 50%;\r\n  border: 15px solid transparent;\r\n  border-top-color: #3498db;\r\n  -webkit-animation: spin 1.5s linear infinite;\r\n          animation: spin 1.5s linear infinite;\r\n  z-index: 100;\r\n  opacity: 0.8;\r\n  margin: 150px 0;\r\n}\r\n\r\n.spinner::before {\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  border-radius: 50%;\r\n  border: 15px solid transparent;\r\n  border-top-color: #e74c3c;\r\n  -webkit-animation: spin 3s linear infinite;\r\n          animation: spin 3s linear infinite;\r\n}\r\n\r\n.spinner::after {\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 15px;\r\n  left: 15px;\r\n  right: 15px;\r\n  bottom: 15px;\r\n  border-radius: 50%;\r\n  border: 15px solid transparent;\r\n  border-top-color: #f9c922;\r\n  -webkit-animation: spin 1.5s linear infinite;\r\n          animation: spin 1.5s linear infinite;\r\n}\r\n\r\n@-webkit-keyframes spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n\r\n@keyframes spin {\r\n  from {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\r\n  }\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\r\n  }\r\n}\r\n", ""]);
 
 	// exports
 
@@ -31846,7 +31852,7 @@
 						that.componentWillMount();
 					});;
 				}).catch(function (error) {
-					console.log(error);
+					return console.log(error);
 				});
 			}
 		}, {
@@ -31871,6 +31877,13 @@
 			value: function componentWillMount() {
 				var _this2 = this;
 
+				//*isLogged*//
+				_axios2.default.post('/').then(function (response) {
+					if (response.data.Logged === false) {
+						_reactRouter.browserHistory.push('/admin/login');
+					}
+				});
+				//*isLogged*//
 				this.setState({ isLoading: true });
 				_axios2.default.get('/admin/product?page=' + this.state.offset).then(function (response) {
 					return _this2.setState({ data: response.data.doc, pageCount: response.data.total_count, loading: false });
@@ -31879,16 +31892,16 @@
 		}, {
 			key: 'updateSearch',
 			value: function updateSearch(event) {
+				var _this3 = this;
+
 				this.setState({
 					search: event.target.value,
 					offset: 0
 				}, function () {
-					var _this3 = this;
-
 					_axios2.default.get('/admin/product', {
 						params: {
-							page: this.state.offset,
-							search: this.state.search
+							page: _this3.state.offset,
+							search: _this3.state.search
 						}
 					}).then(function (response) {
 						return _this3.setState({
@@ -31904,9 +31917,6 @@
 				var _this4 = this;
 
 				var data = this.state.data;
-				if (data === undefined) {
-					_reactRouter.browserHistory.push('/admin/login');return;
-				}
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -33078,6 +33088,13 @@
 	        value: function componentWillMount() {
 	            var _this3 = this;
 
+	            //*isLogged*//
+	            _axios2.default.post('/').then(function (response) {
+	                if (response.data.Logged === false) {
+	                    _reactRouter.browserHistory.push('/admin/login');
+	                }
+	            });
+	            //*isLogged*//
 	            _axios2.default.get('/admin/discount').then(function (response) {
 	                return _this3.setState({ data: response.data });
 	            });
@@ -49087,7 +49104,7 @@
 
 
 	// module
-	exports.push([module.id, ".dis-list-btn > .wrap-padding>button{\r\n    display: inline-block\r\n}\r\n.dis-list-btn {\r\n    display: inline-block\r\n}", ""]);
+	exports.push([module.id, ".dis-list-btn > .wrap-padding>button{\r\n    display: inline-block\r\n}\r\n\r\n.dis-list-btn {\r\n    display: inline-block\r\n}\r\n", ""]);
 
 	// exports
 
@@ -49145,18 +49162,18 @@
 	        var _this = _possibleConstructorReturn(this, (CreateDis.__proto__ || Object.getPrototypeOf(CreateDis)).call(this, props));
 
 	        _this.state = {
-	            allProd: [],
+	            data: [],
 	            disDB: { product: [], dateExpired: (0, _moment2.default)(), disCode: "" },
 	            loading: true,
+	            mLoading: true,
 	            pBefore: '',
 	            pAfter: '',
 	            arrPrBefore: [],
 	            arrPrAfter: [],
-	            arrImg: []
+	            arrImg: [],
+	            offset: 0
 	        };
-
 	        _this.handleDisCode = _this.handleDisCode.bind(_this);
-	        _this.handleProdTitle = _this.handleProdTitle.bind(_this);
 	        _this.handleProdDisc = _this.handleProdDisc.bind(_this);
 	        _this.handleExpDate = _this.handleExpDate.bind(_this);
 	        _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -49176,8 +49193,8 @@
 	        value: function handleProdTitle(e) {
 	            e.preventDefault();
 	            var title = e.target.value;
+	            var allProd = this.state.data;
 	            this.setState({ prodTitle: title });
-	            var allProd = this.state.allProd;
 	            for (var i = 0; i < allProd.length; i++) {
 	                if (allProd[i].title.toString() === title.toString()) {
 	                    this.setState({ pBefore: allProd[i].price });
@@ -49216,11 +49233,34 @@
 	                    };
 	                }
 	            }
-
 	            for (var f = 0; f < arrPrBefore.length; f++) {
 	                arrPrAfter.push(arrPrBefore[f] - this.state.disDB.product[f].discount / 100 * arrPrBefore[f]);
 	            }
 	            this.forceUpdate();
+	        }
+	    }, {
+	        key: 'updadeSearch',
+	        value: function updadeSearch(e) {
+	            var _this2 = this;
+
+	            this.setState({
+	                search: e.target.value,
+	                offset: 0,
+	                mLoading: true
+	            }, function () {
+	                _axios2.default.get('/admin/prod', {
+	                    params: {
+	                        page: _this2.state.offset,
+	                        search: _this2.state.search
+	                    }
+	                }).then(function (response) {
+	                    return _this2.setState({
+	                        data: response.data.doc,
+	                        pageCount: response.data.total_count,
+	                        mLoading: false
+	                    });
+	                });
+	            });
 	        }
 	    }, {
 	        key: 'handleSubmit',
@@ -49246,30 +49286,29 @@
 	    }, {
 	        key: 'handleRefresh',
 	        value: function handleRefresh(e) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            e.preventDefault();
 	            var random = Math.random().toString(36).substring(2);
 	            var temp = this.state.disDB;
 	            temp.disCode = random;
 	            this.setState({ disDB: temp });
-
 	            if (!!this.state.disDB.disCode) {
 	                _axios2.default.get('/admin/discount/' + this.state.disDB.disCode).then(function (response) {
 	                    _reactRouter.browserHistory.push({
 	                        pathname: '/admin/create_discount',
-	                        state: _this2.state.disDB.disCode
+	                        state: _this3.state.disDB.disCode
 	                    });
-	                    _this2.setState({ loading: true }, function () {
-	                        _this2.componentWillMount();
+	                    _this3.setState({ loading: true }, function () {
+	                        _this3.componentWillMount();
 	                    });
 	                });
-	            } else {}
+	            }
 	        }
 	    }, {
 	        key: 'handleDeleteProd',
 	        value: function handleDeleteProd(e) {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            e.preventDefault();
 	            var index = e.target.value;
@@ -49281,33 +49320,33 @@
 	                dateExpired: this.state.disDB.dateExpired,
 	                product: this.state.disDB.product
 	            }).then(function (response) {
-	                _this3.setState({ loading: true }, function () {
-	                    return _this3.componentWillMount();
+	                _this4.setState({ loading: true }, function () {
+	                    return _this4.componentWillMount();
 	                });
 	            });
 	        }
 	    }, {
 	        key: 'handleSearchDiscount',
 	        value: function handleSearchDiscount(e) {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            e.preventDefault();
 	            if (!!this.state.disDB.disCode) {
 	                _axios2.default.get('/admin/discount/' + this.state.disDB.disCode).then(function (response) {
 	                    _reactRouter.browserHistory.push({
 	                        pathname: '/admin/create_discount',
-	                        state: _this4.state.disDB.disCode
+	                        state: _this5.state.disDB.disCode
 	                    });
-	                    _this4.setState({ loading: true }, function () {
-	                        _this4.componentWillMount();
+	                    _this5.setState({ loading: true }, function () {
+	                        _this5.componentWillMount();
 	                    });
 	                });
-	            } else {}
+	            }
 	        }
 	    }, {
 	        key: 'handleDeleteProd',
 	        value: function handleDeleteProd(e) {
-	            var _this5 = this;
+	            var _this6 = this;
 
 	            e.preventDefault();
 	            var index = e.target.value;
@@ -49319,16 +49358,24 @@
 	                dateExpired: this.state.disDB.dateExpired,
 	                product: this.state.disDB.product
 	            }).then(function (response) {
-	                _this5.setState({ loading: true }, function () {
-	                    return _this5.componentWillMount();
+	                _this6.setState({ loading: true }, function () {
+	                    return _this6.componentWillMount();
 	                });
 	            });
 	        }
 	    }, {
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            var that = this;
+	            var _this7 = this;
 
+	            //*isLogged*//
+	            _axios2.default.post('/').then(function (response) {
+	                if (response.data.Logged === false) {
+	                    _reactRouter.browserHistory.push('/admin/login');
+	                }
+	            });
+	            //*isLogged*//
+	            var that = this;
 	            if (this.props.location.state) {
 	                _axios2.default.get('/admin/discount/' + this.props.location.state).then(function (response) {
 	                    that.setState({
@@ -49337,11 +49384,42 @@
 	                        dateExpired: (0, _moment2.default)(),
 	                        product: [],
 	                        loading: false,
+	                        mLoading: true,
 	                        pBefore: '',
 	                        pAfter: '',
 	                        arrPrBefore: [],
 	                        arrPrAfter: [],
 	                        arrImg: []
+	                    });
+	                }).then(function () {
+	                    var titleArr = [];
+	                    _this7.state.disDB.product.map(function (item) {
+	                        titleArr.push(item.prodTitle);
+	                    });
+	                    if (titleArr.length !== 0) {
+	                        _axios2.default.post('/admin/prod', {
+	                            titleArr: titleArr
+	                        }).then(function (response) {
+	                            that.setState({ allProd: response.data });
+	                            that.getPrices();
+	                        });
+	                    }
+	                }).then(function () {
+	                    _this7.setState({
+	                        offset: 0
+	                    }, function () {
+	                        _axios2.default.get('/admin/prod', {
+	                            params: {
+	                                page: _this7.state.offset,
+	                                search: ""
+	                            }
+	                        }).then(function (response) {
+	                            return _this7.setState({
+	                                data: response.data.doc,
+	                                pageCount: response.data.total_count,
+	                                mLoading: false
+	                            });
+	                        });
 	                    });
 	                });
 	            } else {
@@ -49355,20 +49433,15 @@
 	                    pAfter: '',
 	                    arrPrBefore: [],
 	                    arrPrAfter: [],
-	                    arrImg: []
+	                    arrImg: [],
+	                    mLoading: false
 	                });
 	            }
-
-	            _axios2.default.get('/admin/prod').then(function (response) {
-	                that.setState({ allProd: response.data }, function () {
-	                    that.getPrices();
-	                });
-	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this6 = this;
+	            var _this8 = this;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -49406,7 +49479,7 @@
 	                                                    type: 'text',
 	                                                    value: this.state.disDB.disCode,
 	                                                    onChange: function onChange(e) {
-	                                                        _this6.handleDisCode(e);
+	                                                        _this8.handleDisCode(e);
 	                                                    },
 	                                                    disabled: !(this.state.disDB.product.length == 0),
 	                                                    required: true }),
@@ -49458,14 +49531,12 @@
 	                                        _react2.default.createElement(
 	                                            'form',
 	                                            { className: 'mui-form--inline', onSubmit: function onSubmit(e) {
-	                                                    return _this6.handleSubmit(e);
+	                                                    return _this8.handleSubmit(e);
 	                                                } },
 	                                            _react2.default.createElement(
 	                                                'div',
 	                                                { className: 'mui-textfield large-input marg-right prod-name-main' },
-	                                                _react2.default.createElement('input', { list: 'name', onChange: function onChange(e) {
-	                                                        _this6.handleProdTitle(e);
-	                                                    }, required: true }),
+	                                                _react2.default.createElement('input', { list: 'name', onChange: this.updadeSearch.bind(this), onSelect: this.handleProdTitle.bind(this), required: true }),
 	                                                _react2.default.createElement(
 	                                                    'label',
 	                                                    null,
@@ -49474,13 +49545,26 @@
 	                                                _react2.default.createElement(
 	                                                    'datalist',
 	                                                    { id: 'name' },
-	                                                    this.state.allProd.map(function (item, i) {
+	                                                    this.state.data.map(function (item, i) {
 	                                                        return _react2.default.createElement(
 	                                                            'option',
 	                                                            { key: i },
 	                                                            item.title
 	                                                        );
 	                                                    })
+	                                                )
+	                                            ),
+	                                            this.state.mLoading ? _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'small-spin' },
+	                                                _react2.default.createElement(_Spinner2.default, null)
+	                                            ) : _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'small-spin' },
+	                                                _react2.default.createElement(
+	                                                    'i',
+	                                                    { className: 'material-icons' },
+	                                                    'done'
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -49497,7 +49581,7 @@
 	                                                'div',
 	                                                { className: 'mui-textfield large-input indisc marg-right' },
 	                                                _react2.default.createElement('input', { type: 'text', defaultValue: '0', onChange: function onChange(e) {
-	                                                        _this6.handleProdDisc(e);
+	                                                        _this8.handleProdDisc(e);
 	                                                    }, pattern: '^([0-9][0-9]{0,1})$' }),
 	                                                _react2.default.createElement(
 	                                                    'label',
@@ -49551,12 +49635,12 @@
 	                                                    _react2.default.createElement(
 	                                                        'span',
 	                                                        { className: 'disc-img' },
-	                                                        _react2.default.createElement('img', { src: _this6.state.arrImg[i], alt: 'Failed to load' })
+	                                                        _react2.default.createElement('img', { src: _this8.state.arrImg[i], alt: 'Failed to load' })
 	                                                    ),
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'mui-textfield large-input inprice marg-right' },
-	                                                        _react2.default.createElement('input', { type: 'text', value: '$' + (_this6.state.arrPrBefore[i] / 100).toFixed(2), disabled: true }),
+	                                                        _react2.default.createElement('input', { type: 'text', value: '$' + (_this8.state.arrPrBefore[i] / 100).toFixed(2), disabled: true }),
 	                                                        _react2.default.createElement(
 	                                                            'label',
 	                                                            null,
@@ -49578,7 +49662,7 @@
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'mui-textfield large-input inprice marg-right' },
-	                                                        _react2.default.createElement('input', { type: 'text', value: '$' + (_this6.state.arrPrAfter[i] / 100).toFixed(2), disabled: true }),
+	                                                        _react2.default.createElement('input', { type: 'text', value: '$' + (_this8.state.arrPrAfter[i] / 100).toFixed(2), disabled: true }),
 	                                                        _react2.default.createElement(
 	                                                            'label',
 	                                                            null,
@@ -49587,7 +49671,7 @@
 	                                                    ),
 	                                                    _react2.default.createElement(
 	                                                        'button',
-	                                                        { className: 'mui-btn mui-btn--danger disc-btn-wrap', value: i, onClick: _this6.handleDeleteProd.bind(_this6) },
+	                                                        { className: 'mui-btn mui-btn--danger disc-btn-wrap', value: i, onClick: _this8.handleDeleteProd.bind(_this8) },
 	                                                        _react2.default.createElement(
 	                                                            'i',
 	                                                            { className: 'material-icons' },
@@ -50013,7 +50097,7 @@
 
 
 	// module
-	exports.push([module.id, "/* react-datepicker start */\r\n.react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n.react-datepicker__month-read-view--down-arrow {\r\n  margin-left: -8px;\r\n  position: absolute; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n  .react-datepicker__month-read-view--down-arrow, .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    box-sizing: content-box;\r\n    position: absolute;\r\n    border: 8px solid transparent;\r\n    height: 0;\r\n    width: 1px; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    content: \"\";\r\n    z-index: -1;\r\n    border-width: 8px;\r\n    left: -8px;\r\n    border-bottom-color: #aeaeae; }\r\n\r\n.react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle {\r\n  top: 0;\r\n  margin-top: -8px; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before {\r\n    border-top: none;\r\n    border-bottom-color: #f0f0f0; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before {\r\n    top: -1px;\r\n    border-bottom-color: #aeaeae; }\r\n\r\n.react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n.react-datepicker__month-read-view--down-arrow {\r\n  bottom: 0;\r\n  margin-bottom: -8px; }\r\n  .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n  .react-datepicker__month-read-view--down-arrow, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    border-bottom: none;\r\n    border-top-color: #fff; }\r\n  .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    bottom: -1px;\r\n    border-top-color: #aeaeae; }\r\n\r\n.react-datepicker-wrapper {\r\n  display: inline-block; }\r\n\r\n.react-datepicker {\r\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n  font-size: 16px;\r\n  background-color: #fff;\r\n  color: #000;\r\n  border: 1px solid #aeaeae;\r\n  border-radius: 0.3rem;\r\n  display: inline-block;\r\n  position: relative; }\r\n\r\n.react-datepicker__triangle {\r\n  position: absolute;\r\n  left: 50px; }\r\n\r\n.react-datepicker-popper {\r\n  z-index: 1; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] {\r\n    margin-top: 10px; }\r\n  .react-datepicker-popper[data-placement^=\"top\"] {\r\n    margin-bottom: 6px; }\r\n  .react-datepicker-popper[data-placement^=\"right\"] {\r\n    margin-left: 8px; }\r\n    .react-datepicker-popper[data-placement^=\"right\"] .react-datepicker__triangle {\r\n      left: auto;\r\n      right: 42px; }\r\n  .react-datepicker-popper[data-placement^=\"left\"] {\r\n    margin-right: 8px; }\r\n    .react-datepicker-popper[data-placement^=\"left\"] .react-datepicker__triangle {\r\n      left: 42px;\r\n      right: auto; }\r\n\r\n.react-datepicker__header {\r\n  text-align: center;\r\n  background-color: #00BCD4;\r\n  border-bottom: 1px solid #aeaeae;\r\n  border-top-left-radius: 0.3rem;\r\n  border-top-right-radius: 0.3rem;\r\n  padding-top: 8px;\r\n  position: relative; }\r\n\r\n.react-datepicker__year-dropdown-container--select,\r\n.react-datepicker__month-dropdown-container--select,\r\n.react-datepicker__year-dropdown-container--scroll,\r\n.react-datepicker__month-dropdown-container--scroll {\r\n  display: inline-block;\r\n  margin: 0 2px; }\r\n\r\n.react-datepicker__current-month {\r\n  margin-top: 0;\r\n  color: #000;\r\n  font-weight: bold;\r\n  font-size: 16px; }\r\n\r\n.react-datepicker__navigation {\r\n  line-height: 1.7rem;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  position: absolute;\r\n  top: 10px;\r\n  width: 0;\r\n  border: 0.45rem solid transparent;\r\n  z-index: 1; }\r\n  .react-datepicker__navigation--previous {\r\n    left: 10px;\r\n    border-right-color: #ccc; }\r\n    .react-datepicker__navigation--previous:hover {\r\n      border-right-color: #b3b2b2; }\r\n  .react-datepicker__navigation--next {\r\n    right: 10px;\r\n    border-left-color: #ccc; }\r\n    .react-datepicker__navigation--next:hover {\r\n      border-left-color: #b3b2b2; }\r\n  .react-datepicker__navigation--years {\r\n    position: relative;\r\n    top: 0;\r\n    display: block;\r\n    margin-left: auto;\r\n    margin-right: auto; }\r\n    .react-datepicker__navigation--years-previous {\r\n      top: 4px;\r\n      border-top-color: #ccc; }\r\n      .react-datepicker__navigation--years-previous:hover {\r\n        border-top-color: #b3b2b2; }\r\n    .react-datepicker__navigation--years-upcoming {\r\n      top: -4px;\r\n      border-bottom-color: #ccc; }\r\n      .react-datepicker__navigation--years-upcoming:hover {\r\n        border-bottom-color: #b3b2b2; }\r\n\r\n.react-datepicker__month-container {\r\n  display: inline;\r\n  float: left; }\r\n\r\n.react-datepicker__month {\r\n  margin: 30px;\r\n  text-align: center; }\r\n\r\n.react-datepicker__week-number {\r\n  color: #ccc;\r\n  display: inline-block;\r\n  width: 1.7rem;\r\n  line-height: 1.7rem;\r\n  text-align: center;\r\n  margin: 0.166rem; }\r\n  .react-datepicker__week-number.react-datepicker__week-number--clickable {\r\n    cursor: pointer; }\r\n    .react-datepicker__week-number.react-datepicker__week-number--clickable:hover {\r\n      border-radius: 0.3rem;\r\n      background-color: #f0f0f0; }\r\n\r\n.react-datepicker__day-name,\r\n.react-datepicker__day {\r\n  color: #000;\r\n  display: inline-block;\r\n  width: 25px;\r\n  line-height: 2.7rem;\r\n  text-align: center;\r\n  margin: 0px; }\r\n\r\n.react-datepicker__day {\r\n  cursor: pointer; }\r\n  .react-datepicker__day:hover {\r\n    border-radius: 0.3rem;\r\n    background-color: #f0f0f0; }\r\n  .react-datepicker__day--today {\r\n    font-weight: bold; }\r\n  .react-datepicker__day--highlighted {\r\n    border-radius: 0.3rem;\r\n    background-color: #3dcc4a;\r\n    color: #fff; }\r\n    .react-datepicker__day--highlighted:hover {\r\n      background-color: #32be3f; }\r\n    .react-datepicker__day--highlighted-custom-1 {\r\n      color: magenta; }\r\n    .react-datepicker__day--highlighted-custom-2 {\r\n      color: green; }\r\n  .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range {\r\n    border-radius: 0.3rem;\r\n    background-color: #216ba5;\r\n    color: #fff; }\r\n    .react-datepicker__day--selected:hover, .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover {\r\n      background-color: #00BCD4; }\r\n  .react-datepicker__day--keyboard-selected {\r\n    border-radius: 0.3rem;\r\n    background-color: #2a87d0;\r\n    color: #fff; }\r\n    .react-datepicker__day--keyboard-selected:hover {\r\n      background-color: #1d5d90; }\r\n  .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {\r\n    background-color: rgba(33, 107, 165, 0.5); }\r\n  .react-datepicker__month--selecting-range .react-datepicker__day--in-range:not(.react-datepicker__day--in-selecting-range) {\r\n    background-color: #f0f0f0;\r\n    color: #000; }\r\n  .react-datepicker__day--disabled {\r\n    cursor: default;\r\n    color: #ccc; }\r\n    .react-datepicker__day--disabled:hover {\r\n      background-color: transparent; }\r\n\r\n.react-datepicker__input-container {\r\n  position: relative;\r\n  display: inline-block; }\r\n\r\n.react-datepicker__year-read-view,\r\n.react-datepicker__month-read-view {\r\n  border: 1px solid transparent;\r\n  border-radius: 0.3rem; }\r\n  .react-datepicker__year-read-view:hover,\r\n  .react-datepicker__month-read-view:hover {\r\n    cursor: pointer; }\r\n    .react-datepicker__year-read-view:hover .react-datepicker__year-read-view--down-arrow,\r\n    .react-datepicker__year-read-view:hover .react-datepicker__month-read-view--down-arrow,\r\n    .react-datepicker__month-read-view:hover .react-datepicker__year-read-view--down-arrow,\r\n    .react-datepicker__month-read-view:hover .react-datepicker__month-read-view--down-arrow {\r\n      border-top-color: #b3b2b2; }\r\n  .react-datepicker__year-read-view--down-arrow,\r\n  .react-datepicker__month-read-view--down-arrow {\r\n    border-top-color: #ccc;\r\n    float: right;\r\n    margin-left: 20px;\r\n    top: 8px;\r\n    position: relative;\r\n    border-width: 0.45rem; }\r\n\r\n.react-datepicker__year-dropdown,\r\n.react-datepicker__month-dropdown {\r\n  background-color: #f0f0f0;\r\n  position: absolute;\r\n  width: 50%;\r\n  left: 25%;\r\n  top: 30px;\r\n  z-index: 1;\r\n  text-align: center;\r\n  border-radius: 0.3rem;\r\n  border: 1px solid #aeaeae; }\r\n  .react-datepicker__year-dropdown:hover,\r\n  .react-datepicker__month-dropdown:hover {\r\n    cursor: pointer; }\r\n  .react-datepicker__year-dropdown--scrollable,\r\n  .react-datepicker__month-dropdown--scrollable {\r\n    height: 150px;\r\n    overflow-y: scroll; }\r\n\r\n.react-datepicker__year-option,\r\n.react-datepicker__month-option {\r\n  line-height: 20px;\r\n  width: 100%;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto; }\r\n  .react-datepicker__year-option:first-of-type,\r\n  .react-datepicker__month-option:first-of-type {\r\n    border-top-left-radius: 0.3rem;\r\n    border-top-right-radius: 0.3rem; }\r\n  .react-datepicker__year-option:last-of-type,\r\n  .react-datepicker__month-option:last-of-type {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    border-bottom-left-radius: 0.3rem;\r\n    border-bottom-right-radius: 0.3rem; }\r\n  .react-datepicker__year-option:hover,\r\n  .react-datepicker__month-option:hover {\r\n    background-color: #ccc; }\r\n    .react-datepicker__year-option:hover .react-datepicker__navigation--years-upcoming,\r\n    .react-datepicker__month-option:hover .react-datepicker__navigation--years-upcoming {\r\n      border-bottom-color: #b3b2b2; }\r\n    .react-datepicker__year-option:hover .react-datepicker__navigation--years-previous,\r\n    .react-datepicker__month-option:hover .react-datepicker__navigation--years-previous {\r\n      border-top-color: #b3b2b2; }\r\n  .react-datepicker__year-option--selected,\r\n  .react-datepicker__month-option--selected {\r\n    position: absolute;\r\n    left: 15px; }\r\n\r\n.react-datepicker__close-icon {\r\n  background-color: transparent;\r\n  border: 0;\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  height: 0;\r\n  outline: 0;\r\n  padding: 0;\r\n  vertical-align: middle; }\r\n  .react-datepicker__close-icon::after {\r\n    background-color: #216ba5;\r\n    border-radius: 50%;\r\n    bottom: 0;\r\n    box-sizing: border-box;\r\n    color: #fff;\r\n    content: \"\\D7\";\r\n    cursor: pointer;\r\n    font-size: 16px;\r\n    height: 16px;\r\n    width: 16px;\r\n    line-height: 1;\r\n    margin: -8px auto 0;\r\n    padding: 2px;\r\n    position: absolute;\r\n    right: 7px;\r\n    text-align: center;\r\n    top: 50%; }\r\n\r\n.react-datepicker__today-button {\r\n  background: #f0f0f0;\r\n  border-top: 1px solid #aeaeae;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  font-weight: bold;\r\n  padding: 5px 0;\r\n  clear: left; }\r\n\r\n.react-datepicker__portal {\r\n  position: fixed;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background-color: rgba(0, 0, 0, 0.8);\r\n  left: 0;\r\n  top: 0;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  z-index: 2147483647; }\r\n  .react-datepicker__portal .react-datepicker__day-name,\r\n  .react-datepicker__portal .react-datepicker__day {\r\n    width: 3rem;\r\n    line-height: 3rem; }\r\n  @media (max-width: 400px), (max-height: 550px) {\r\n    .react-datepicker__portal .react-datepicker__day-name,\r\n    .react-datepicker__portal .react-datepicker__day {\r\n      width: 2rem;\r\n      line-height: 2rem; } }\r\n  .react-datepicker__portal .react-datepicker__current-month {\r\n    font-size: 1.44rem; }\r\n  .react-datepicker__portal .react-datepicker__navigation {\r\n    border: 0.81rem solid transparent; }\r\n  .react-datepicker__portal .react-datepicker__navigation--previous {\r\n    border-right-color: #ccc; }\r\n    .react-datepicker__portal .react-datepicker__navigation--previous:hover {\r\n      border-right-color: #b3b2b2; }\r\n  .react-datepicker__portal .react-datepicker__navigation--next {\r\n    border-left-color: #ccc; }\r\n    .react-datepicker__portal .react-datepicker__navigation--next:hover {\r\n      border-left-color: #b3b2b2; }\r\n\r\n\r\n      .DatePicker{\r\n        padding: 7px;\r\n        font-size: 18px;\r\n        margin-left: 10px;\r\n      }\r\n      .DatePicker-wrap{\r\n        display: inline-block;\r\n      }\r\n      .DatePicker-wrap > label{\r\n      display: block;\r\n      width: 100%;\r\n      color: rgba(0, 0, 0, 0.54);\r\n      font-size: 12px;\r\n      font-weight: 400;\r\n      line-height: 15px;\r\n      overflow-x: hidden;\r\n      text-overflow: ellipsis;\r\n      white-space: nowrap;\r\n      margin-left: 10px;\r\n      }\r\n/* react-datepicker end */\r\n.block-1{\r\n  display: block;\r\n  text-align: center;\r\n  margin-bottom: 10px;\r\n}\r\n.block-1 > .large-input > label{\r\n  text-align: left;\r\n}\r\n\r\n.inprice{\r\n  width: 120px;\r\n}\r\n.marg-right{\r\n  margin-right: 5px;\r\n}\r\n\r\n.prod-name-main{\r\n  width: 460px;\r\n}\r\n\r\n.prod-name{\r\n  width: 430px;\r\n}\r\n\r\n.indisc{\r\n  width: 70px;\r\n}\r\n\r\n.disc-img > img{\r\n  height: 60px;\r\n  margin-right: 3px;\r\n\tbox-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.12);\r\n\tbackground-color:#EEEEEE; height: 60px; width: 60px; color:black;\r\n}\r\n.disc-btn-wrap{\r\n  padding: 0 15px !important;\r\n}", ""]);
+	exports.push([module.id, "/* react-datepicker start */\r\n.react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n.react-datepicker__month-read-view--down-arrow {\r\n  margin-left: -8px;\r\n  position: absolute; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n  .react-datepicker__month-read-view--down-arrow, .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    box-sizing: content-box;\r\n    position: absolute;\r\n    border: 8px solid transparent;\r\n    height: 0;\r\n    width: 1px; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    content: \"\";\r\n    z-index: -1;\r\n    border-width: 8px;\r\n    left: -8px;\r\n    border-bottom-color: #aeaeae; }\r\n\r\n.react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle {\r\n  top: 0;\r\n  margin-top: -8px; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before {\r\n    border-top: none;\r\n    border-bottom-color: #f0f0f0; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] .react-datepicker__triangle::before {\r\n    top: -1px;\r\n    border-bottom-color: #aeaeae; }\r\n\r\n.react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n.react-datepicker__month-read-view--down-arrow {\r\n  bottom: 0;\r\n  margin-bottom: -8px; }\r\n  .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,\r\n  .react-datepicker__month-read-view--down-arrow, .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    border-bottom: none;\r\n    border-top-color: #fff; }\r\n  .react-datepicker-popper[data-placement^=\"top\"] .react-datepicker__triangle::before, .react-datepicker__year-read-view--down-arrow::before,\r\n  .react-datepicker__month-read-view--down-arrow::before {\r\n    bottom: -1px;\r\n    border-top-color: #aeaeae; }\r\n\r\n.react-datepicker-wrapper {\r\n  display: inline-block; }\r\n\r\n.react-datepicker {\r\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n  font-size: 16px;\r\n  background-color: #fff;\r\n  color: #000;\r\n  border: 1px solid #aeaeae;\r\n  border-radius: 0.3rem;\r\n  display: inline-block;\r\n  position: relative; }\r\n\r\n.react-datepicker__triangle {\r\n  position: absolute;\r\n  left: 50px; }\r\n\r\n.react-datepicker-popper {\r\n  z-index: 1; }\r\n  .react-datepicker-popper[data-placement^=\"bottom\"] {\r\n    margin-top: 10px; }\r\n  .react-datepicker-popper[data-placement^=\"top\"] {\r\n    margin-bottom: 6px; }\r\n  .react-datepicker-popper[data-placement^=\"right\"] {\r\n    margin-left: 8px; }\r\n    .react-datepicker-popper[data-placement^=\"right\"] .react-datepicker__triangle {\r\n      left: auto;\r\n      right: 42px; }\r\n  .react-datepicker-popper[data-placement^=\"left\"] {\r\n    margin-right: 8px; }\r\n    .react-datepicker-popper[data-placement^=\"left\"] .react-datepicker__triangle {\r\n      left: 42px;\r\n      right: auto; }\r\n\r\n.react-datepicker__header {\r\n  text-align: center;\r\n  background-color: #00BCD4;\r\n  border-bottom: 1px solid #aeaeae;\r\n  border-top-left-radius: 0.3rem;\r\n  border-top-right-radius: 0.3rem;\r\n  padding-top: 8px;\r\n  position: relative; }\r\n\r\n.react-datepicker__year-dropdown-container--select,\r\n.react-datepicker__month-dropdown-container--select,\r\n.react-datepicker__year-dropdown-container--scroll,\r\n.react-datepicker__month-dropdown-container--scroll {\r\n  display: inline-block;\r\n  margin: 0 2px; }\r\n\r\n.react-datepicker__current-month {\r\n  margin-top: 0;\r\n  color: #000;\r\n  font-weight: bold;\r\n  font-size: 16px; }\r\n\r\n.react-datepicker__navigation {\r\n  line-height: 1.7rem;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  position: absolute;\r\n  top: 10px;\r\n  width: 0;\r\n  border: 0.45rem solid transparent;\r\n  z-index: 1; }\r\n  .react-datepicker__navigation--previous {\r\n    left: 10px;\r\n    border-right-color: #ccc; }\r\n    .react-datepicker__navigation--previous:hover {\r\n      border-right-color: #b3b2b2; }\r\n  .react-datepicker__navigation--next {\r\n    right: 10px;\r\n    border-left-color: #ccc; }\r\n    .react-datepicker__navigation--next:hover {\r\n      border-left-color: #b3b2b2; }\r\n  .react-datepicker__navigation--years {\r\n    position: relative;\r\n    top: 0;\r\n    display: block;\r\n    margin-left: auto;\r\n    margin-right: auto; }\r\n    .react-datepicker__navigation--years-previous {\r\n      top: 4px;\r\n      border-top-color: #ccc; }\r\n      .react-datepicker__navigation--years-previous:hover {\r\n        border-top-color: #b3b2b2; }\r\n    .react-datepicker__navigation--years-upcoming {\r\n      top: -4px;\r\n      border-bottom-color: #ccc; }\r\n      .react-datepicker__navigation--years-upcoming:hover {\r\n        border-bottom-color: #b3b2b2; }\r\n\r\n.react-datepicker__month-container {\r\n  display: inline;\r\n  float: left; }\r\n\r\n.react-datepicker__month {\r\n  margin: 30px;\r\n  text-align: center; }\r\n\r\n.react-datepicker__week-number {\r\n  color: #ccc;\r\n  display: inline-block;\r\n  width: 1.7rem;\r\n  line-height: 1.7rem;\r\n  text-align: center;\r\n  margin: 0.166rem; }\r\n  .react-datepicker__week-number.react-datepicker__week-number--clickable {\r\n    cursor: pointer; }\r\n    .react-datepicker__week-number.react-datepicker__week-number--clickable:hover {\r\n      border-radius: 0.3rem;\r\n      background-color: #f0f0f0; }\r\n\r\n.react-datepicker__day-name,\r\n.react-datepicker__day {\r\n  color: #000;\r\n  display: inline-block;\r\n  width: 25px;\r\n  line-height: 2.7rem;\r\n  text-align: center;\r\n  margin: 0px; }\r\n\r\n.react-datepicker__day {\r\n  cursor: pointer; }\r\n  .react-datepicker__day:hover {\r\n    border-radius: 0.3rem;\r\n    background-color: #f0f0f0; }\r\n  .react-datepicker__day--today {\r\n    font-weight: bold; }\r\n  .react-datepicker__day--highlighted {\r\n    border-radius: 0.3rem;\r\n    background-color: #3dcc4a;\r\n    color: #fff; }\r\n    .react-datepicker__day--highlighted:hover {\r\n      background-color: #32be3f; }\r\n    .react-datepicker__day--highlighted-custom-1 {\r\n      color: magenta; }\r\n    .react-datepicker__day--highlighted-custom-2 {\r\n      color: green; }\r\n  .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range {\r\n    border-radius: 0.3rem;\r\n    background-color: #216ba5;\r\n    color: #fff; }\r\n    .react-datepicker__day--selected:hover, .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover {\r\n      background-color: #00BCD4; }\r\n  .react-datepicker__day--keyboard-selected {\r\n    border-radius: 0.3rem;\r\n    background-color: #2a87d0;\r\n    color: #fff; }\r\n    .react-datepicker__day--keyboard-selected:hover {\r\n      background-color: #1d5d90; }\r\n  .react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range) {\r\n    background-color: rgba(33, 107, 165, 0.5); }\r\n  .react-datepicker__month--selecting-range .react-datepicker__day--in-range:not(.react-datepicker__day--in-selecting-range) {\r\n    background-color: #f0f0f0;\r\n    color: #000; }\r\n  .react-datepicker__day--disabled {\r\n    cursor: default;\r\n    color: #ccc; }\r\n    .react-datepicker__day--disabled:hover {\r\n      background-color: transparent; }\r\n\r\n.react-datepicker__input-container {\r\n  position: relative;\r\n  display: inline-block; }\r\n\r\n.react-datepicker__year-read-view,\r\n.react-datepicker__month-read-view {\r\n  border: 1px solid transparent;\r\n  border-radius: 0.3rem; }\r\n  .react-datepicker__year-read-view:hover,\r\n  .react-datepicker__month-read-view:hover {\r\n    cursor: pointer; }\r\n    .react-datepicker__year-read-view:hover .react-datepicker__year-read-view--down-arrow,\r\n    .react-datepicker__year-read-view:hover .react-datepicker__month-read-view--down-arrow,\r\n    .react-datepicker__month-read-view:hover .react-datepicker__year-read-view--down-arrow,\r\n    .react-datepicker__month-read-view:hover .react-datepicker__month-read-view--down-arrow {\r\n      border-top-color: #b3b2b2; }\r\n  .react-datepicker__year-read-view--down-arrow,\r\n  .react-datepicker__month-read-view--down-arrow {\r\n    border-top-color: #ccc;\r\n    float: right;\r\n    margin-left: 20px;\r\n    top: 8px;\r\n    position: relative;\r\n    border-width: 0.45rem; }\r\n\r\n.react-datepicker__year-dropdown,\r\n.react-datepicker__month-dropdown {\r\n  background-color: #f0f0f0;\r\n  position: absolute;\r\n  width: 50%;\r\n  left: 25%;\r\n  top: 30px;\r\n  z-index: 1;\r\n  text-align: center;\r\n  border-radius: 0.3rem;\r\n  border: 1px solid #aeaeae; }\r\n  .react-datepicker__year-dropdown:hover,\r\n  .react-datepicker__month-dropdown:hover {\r\n    cursor: pointer; }\r\n  .react-datepicker__year-dropdown--scrollable,\r\n  .react-datepicker__month-dropdown--scrollable {\r\n    height: 150px;\r\n    overflow-y: scroll; }\r\n\r\n.react-datepicker__year-option,\r\n.react-datepicker__month-option {\r\n  line-height: 20px;\r\n  width: 100%;\r\n  display: block;\r\n  margin-left: auto;\r\n  margin-right: auto; }\r\n  .react-datepicker__year-option:first-of-type,\r\n  .react-datepicker__month-option:first-of-type {\r\n    border-top-left-radius: 0.3rem;\r\n    border-top-right-radius: 0.3rem; }\r\n  .react-datepicker__year-option:last-of-type,\r\n  .react-datepicker__month-option:last-of-type {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    border-bottom-left-radius: 0.3rem;\r\n    border-bottom-right-radius: 0.3rem; }\r\n  .react-datepicker__year-option:hover,\r\n  .react-datepicker__month-option:hover {\r\n    background-color: #ccc; }\r\n    .react-datepicker__year-option:hover .react-datepicker__navigation--years-upcoming,\r\n    .react-datepicker__month-option:hover .react-datepicker__navigation--years-upcoming {\r\n      border-bottom-color: #b3b2b2; }\r\n    .react-datepicker__year-option:hover .react-datepicker__navigation--years-previous,\r\n    .react-datepicker__month-option:hover .react-datepicker__navigation--years-previous {\r\n      border-top-color: #b3b2b2; }\r\n  .react-datepicker__year-option--selected,\r\n  .react-datepicker__month-option--selected {\r\n    position: absolute;\r\n    left: 15px; }\r\n\r\n.react-datepicker__close-icon {\r\n  background-color: transparent;\r\n  border: 0;\r\n  cursor: pointer;\r\n  display: inline-block;\r\n  height: 0;\r\n  outline: 0;\r\n  padding: 0;\r\n  vertical-align: middle; }\r\n  .react-datepicker__close-icon::after {\r\n    background-color: #216ba5;\r\n    border-radius: 50%;\r\n    bottom: 0;\r\n    box-sizing: border-box;\r\n    color: #fff;\r\n    content: \"\\D7\";\r\n    cursor: pointer;\r\n    font-size: 16px;\r\n    height: 16px;\r\n    width: 16px;\r\n    line-height: 1;\r\n    margin: -8px auto 0;\r\n    padding: 2px;\r\n    position: absolute;\r\n    right: 7px;\r\n    text-align: center;\r\n    top: 50%; }\r\n\r\n.react-datepicker__today-button {\r\n  background: #f0f0f0;\r\n  border-top: 1px solid #aeaeae;\r\n  cursor: pointer;\r\n  text-align: center;\r\n  font-weight: bold;\r\n  padding: 5px 0;\r\n  clear: left; }\r\n\r\n.react-datepicker__portal {\r\n  position: fixed;\r\n  width: 100vw;\r\n  height: 100vh;\r\n  background-color: rgba(0, 0, 0, 0.8);\r\n  left: 0;\r\n  top: 0;\r\n  -webkit-box-pack: center;\r\n      -ms-flex-pack: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n      -ms-flex-align: center;\r\n          align-items: center;\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  z-index: 2147483647; }\r\n  .react-datepicker__portal .react-datepicker__day-name,\r\n  .react-datepicker__portal .react-datepicker__day {\r\n    width: 3rem;\r\n    line-height: 3rem; }\r\n  @media (max-width: 400px), (max-height: 550px) {\r\n    .react-datepicker__portal .react-datepicker__day-name,\r\n    .react-datepicker__portal .react-datepicker__day {\r\n      width: 2rem;\r\n      line-height: 2rem; } }\r\n  .react-datepicker__portal .react-datepicker__current-month {\r\n    font-size: 1.44rem; }\r\n  .react-datepicker__portal .react-datepicker__navigation {\r\n    border: 0.81rem solid transparent; }\r\n  .react-datepicker__portal .react-datepicker__navigation--previous {\r\n    border-right-color: #ccc; }\r\n    .react-datepicker__portal .react-datepicker__navigation--previous:hover {\r\n      border-right-color: #b3b2b2; }\r\n  .react-datepicker__portal .react-datepicker__navigation--next {\r\n    border-left-color: #ccc; }\r\n    .react-datepicker__portal .react-datepicker__navigation--next:hover {\r\n      border-left-color: #b3b2b2; }\r\n\r\n\r\n      .DatePicker{\r\n        padding: 7px;\r\n        font-size: 18px;\r\n        margin-left: 10px;\r\n      }\r\n      .DatePicker-wrap{\r\n        display: inline-block;\r\n      }\r\n      .DatePicker-wrap > label{\r\n      display: block;\r\n      width: 100%;\r\n      color: rgba(0, 0, 0, 0.54);\r\n      font-size: 12px;\r\n      font-weight: 400;\r\n      line-height: 15px;\r\n      overflow-x: hidden;\r\n      text-overflow: ellipsis;\r\n      white-space: nowrap;\r\n      margin-left: 10px;\r\n      }\r\n/* react-datepicker end */\r\n\r\n/* small-spinner end */\r\n.small-spin{\r\n  display: inline-block\r\n}\r\n\r\n.small-spin>div > .spinner{\r\n  display: inline-block;\r\n  width: 25px;\r\n  height: 25px;\r\n  border-radius: 50%;\r\n  border: 5px solid transparent;\r\n  border-top-color: transparent;\r\n  border-top-color: #3498db;\r\n  -webkit-animation: spin 1.5s linear infinite;\r\n  animation: spin 1.5s linear infinite;\r\n  z-index: 100;\r\n  opacity: 0.8;\r\n  margin: 0px 0px;\r\n}\r\n\r\n.small-spin>div > .spinner::before{\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0px;\r\n  border-radius: 50%;\r\n  border: 5px solid transparent;\r\n  border-top-color: transparent;\r\n  border-top-color: #e74c3c;\r\n  -webkit-animation: spin 3s linear infinite;\r\n  animation: spin 3s linear infinite;\r\n}\r\n\r\n.small-spin>div > .spinner::after{\r\n  content: \"\";\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  right: 0;\r\n  bottom: 0;\r\n  border-radius: 50%;\r\n  border: 5px solid transparent;\r\n      border-top-color: transparent;\r\n  border-top-color: #f9c922;\r\n  -webkit-animation: spin 1.5s linear infinite;\r\n  animation: spin 1.5s linear infinite;\r\n}\r\n.small-spin>.material-icons{\r\n  font-size: 35px !important;\r\n  color: #3498db !important;\r\n}\r\n/* small-spinner end */\r\n\r\n.block-1{\r\n  display: block;\r\n  text-align: center;\r\n  margin-bottom: 10px;\r\n}\r\n.block-1 > .large-input > label{\r\n  text-align: left;\r\n}\r\n\r\n.inprice{\r\n  width: 120px;\r\n}\r\n.marg-right{\r\n  margin-right: 5px;\r\n}\r\n\r\n.prod-name-main{\r\n  width: 460px;\r\n}\r\n\r\n.prod-name{\r\n  width: 430px;\r\n}\r\n\r\n.indisc{\r\n  width: 70px;\r\n}\r\n\r\n.disc-img > img{\r\n  height: 60px;\r\n  margin-right: 3px;\r\n\tbox-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.12);\r\n\tbackground-color:#EEEEEE; height: 60px; width: 60px; color:black;\r\n}\r\n\r\n.disc-btn-wrap{\r\n  padding: 0 15px !important;\r\n}\r\n\r\ninput::-webkit-calendar-picker-indicator {\r\n  opacity: 100;\r\n}\r\n\r\n", ""]);
 
 	// exports
 
@@ -54367,6 +54451,13 @@
 	        value: function componentWillMount() {
 	            var _this3 = this;
 
+	            //*isLogged*//
+	            _axios2.default.post('/').then(function (response) {
+	                if (response.data.Logged === false) {
+	                    _reactRouter.browserHistory.push('/admin/login');
+	                }
+	            });
+	            //*isLogged*//
 	            _axios2.default.get('/admin/order?page=' + this.state.offset).then(function (response) {
 	                _this3.setState({ data: response.data.doc, pageCount: response.data.total_count, loading: false });
 	            });
@@ -54374,7 +54465,6 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'mui-container' },
@@ -54482,7 +54572,12 @@
 	                                                _react2.default.createElement(
 	                                                    'div',
 	                                                    { className: 'mui--text-dark mui--text-body1' },
-	                                                    'Id'
+	                                                    'Order id'
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'div',
+	                                                    { className: 'mui--text-dark mui--text-body1' },
+	                                                    'User id'
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'div',
@@ -54506,7 +54601,12 @@
 	                                                _react2.default.createElement(
 	                                                    'div',
 	                                                    { className: ' mui--text-dark mui--text-body1' },
-	                                                    item._id
+	                                                    item.orderId
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'div',
+	                                                    { className: ' mui--text-dark mui--text-body1' },
+	                                                    item.userId
 	                                                ),
 	                                                _react2.default.createElement(
 	                                                    'div',
@@ -54518,15 +54618,36 @@
 	                                                            switch (item.status) {
 	                                                                case 'delivering':
 	                                                                    return _react2.default.createElement(
-	                                                                        'i',
-	                                                                        { className: 'material-icons mui--text-dark mui--text-body1' },
-	                                                                        'local_shipping'
+	                                                                        'span',
+	                                                                        null,
+	                                                                        _react2.default.createElement(
+	                                                                            'i',
+	                                                                            { className: 'material-icons mui--text-dark mui--text-body1' },
+	                                                                            'local_shipping'
+	                                                                        ),
+	                                                                        ' In delivering'
+	                                                                    );
+	                                                                case 'paid':
+	                                                                    return _react2.default.createElement(
+	                                                                        'span',
+	                                                                        null,
+	                                                                        _react2.default.createElement(
+	                                                                            'i',
+	                                                                            { className: 'material-icons mui--text-dark mui--text-body1' },
+	                                                                            'monetization_on'
+	                                                                        ),
+	                                                                        ' Paid'
 	                                                                    );
 	                                                                default:
 	                                                                    return _react2.default.createElement(
-	                                                                        'i',
-	                                                                        { className: 'material-icons mui--text-dark mui--text-body1' },
-	                                                                        'done_all'
+	                                                                        'span',
+	                                                                        null,
+	                                                                        _react2.default.createElement(
+	                                                                            'i',
+	                                                                            { className: 'material-icons mui--text-dark mui--text-body1' },
+	                                                                            'done_all'
+	                                                                        ),
+	                                                                        ' Done'
 	                                                                    );
 	                                                            }
 	                                                        }()

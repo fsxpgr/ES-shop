@@ -14,10 +14,10 @@ display: inline-block;
 .spinner::before {
   content: "";
   position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 50%;
   border: 15px solid transparent;
   border-top-color: #e74c3c;

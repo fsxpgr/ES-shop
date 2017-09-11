@@ -3,6 +3,7 @@ var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./server/s3_config.json');
 var s3Bucket = new AWS.S3({ params: { Bucket: 'es-shop' } });
 const fetch = require("fetch-base64");
+const PER_PAGE = 10;
 
 exports.createProduct = (data) => {
     var imgS3arr = [];
@@ -40,6 +41,7 @@ exports.createProduct = (data) => {
 exports.editProduct = (id, data) => {
     return Product.findById(id)
         .then(() => {
+            //filter uploaded to s3 images
             var imgS3arr = data.img;
             var tempArr = [];
             var i = imgS3arr.length
@@ -49,6 +51,8 @@ exports.editProduct = (id, data) => {
                     imgS3arr.splice(i, 1)
                 }
             }
+
+            //upload array of images to s3
             var tempArrS3 = []
             return Promise.all(tempArr.map((img, i) => {
                 return fetch.remote(img).then((base) => {
@@ -68,9 +72,6 @@ exports.editProduct = (id, data) => {
             }))
                 .then((edited) => {
                     return Product.findById(id, (err, edited) => {
-                        if (err) {
-                            console.log(err)
-                        }
                         edited.title = data.title.trim();
                         edited.desc = data.desc;
                         edited.price = data.price;
@@ -103,40 +104,29 @@ exports.uploadFile = (data) => {
             ContentType: 'image/jpeg'
         };
     }
-    return s3Bucket.putObject(imgS3).promise().then((data) => {
-        return 'https://s3.eu-central-1.amazonaws.com/es-shop/' + imgS3.Key
-    }).catch((err) => {
-        throw err;
-    }).then();
+    return s3Bucket.putObject(imgS3)
+        .promise()
+        .then((data) => {
+            return 'https://s3.eu-central-1.amazonaws.com/es-shop/' + imgS3.Key
+        }).catch((err) => {
+            throw err;
+        });
 }
 
 
 exports.deleteProduct = (id) => {
-    return Product.findById(id).remove((function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('deleted! id:' + id);
-        }
-    }));
+    return Product.findByIdAndRemove(id)
 }
-
 
 exports.findItem = (id) => {
-    return Product.findById(id, function (err, data) {
-        if (err) {
-            console.log(err);
-        }
-    });
+    return Product.findOne({ _id: id })
 }
-
 
 
 getPaginatedItems = (items, offset) => {
     return items.slice(offset, offset + 10);
 }
 
-const PER_PAGE = 10;
 exports.listItem = (req, res) => {
     var offset = req.query.page ? parseInt(req.query.page, 10) : 0;
     var nextOffset = offset + PER_PAGE;
@@ -159,12 +149,31 @@ exports.listItem = (req, res) => {
 
 
 
-//temporary
-exports.allList = (req, res) => {
-    Product.find({},
-        (err, data) => {
-            if (data)
-                res.json(data)
-        }
-    )
+exports.getPaginatedItemsDis = (req, res) => {
+    var offset = req.query.page ? parseInt(req.query.page, 10) : 0;
+    var nextOffset = offset + PER_PAGE;
+    var previousOffset = (offset - PER_PAGE < 1) ? 0 : offset - PER_PAGE;
+    var filter = req.query.search ? req.query.search : '';
+
+    /*serch filter*/
+    var flag = 'gi'
+    filter = "^(.*?)(" + filter + ")(.*)$";
+    var regex = new RegExp(filter, flag);
+    /*Find in BD*/
+    Product.find({
+        $and: [{ $or: [{ title: { $regex: regex } }, { desc: { $regex: regex } }] }]
+    }).then((doc) => {
+        var data = { doc: getPaginatedItems(doc, offset), total_count: Math.ceil(doc.length / 10) };
+        res.send(data);
+    })
+}
+
+//filter products which uses in Create_discount page
+exports.getDisProd = (req, res) => {
+    return Product.find({
+        title: req.body.titleArr
+    })
+        .then(data =>
+            res.send(data)
+        )
 }

@@ -29,16 +29,18 @@ export default class ListDis extends React.Component {
                 this.setState({ loading: true }, () => { this.componentWillMount() }));
     }
 
-
-
-
     componentWillMount() {
+        //*isLogged*//
+        axios.post('/').then(response => {
+            if (response.data.Logged === false) {
+                browserHistory.push('/admin/login')
+            }
+        })
+        //*isLogged*//
         axios.get(`/admin/discount`).then(response =>
             this.setState({ data: response.data }));
 
     }
-
-
 
     updateSearch(event) {
         this.setState({
@@ -100,8 +102,6 @@ export default class ListDis extends React.Component {
                                                 )}
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             )}
@@ -111,12 +111,6 @@ export default class ListDis extends React.Component {
                 </div>
                 <div className="mui-col-md-2"></div>
             </div>
-
-
-
-
-
-
         );
     }
 }

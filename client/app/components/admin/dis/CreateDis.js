@@ -12,18 +12,18 @@ export default class CreateDis extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allProd: [],
+            data: [],
             disDB: { product: [], dateExpired: moment(), disCode: "" },
             loading: true,
+            mLoading: true,
             pBefore: '',
             pAfter: '',
             arrPrBefore: [],
             arrPrAfter: [],
-            arrImg: []
+            arrImg: [],
+            offset: 0,
         }
-
         this.handleDisCode = this.handleDisCode.bind(this);
-        this.handleProdTitle = this.handleProdTitle.bind(this);
         this.handleProdDisc = this.handleProdDisc.bind(this);
         this.handleExpDate = this.handleExpDate.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,8 +39,8 @@ export default class CreateDis extends React.Component {
     handleProdTitle(e) {
         e.preventDefault();
         var title = e.target.value
+        var allProd = this.state.data
         this.setState({ prodTitle: title })
-        var allProd = this.state.allProd
         for (var i = 0; i < allProd.length; i++) {
             if (allProd[i].title.toString() === title.toString()) {
                 this.setState({ pBefore: allProd[i].price })
@@ -57,7 +57,6 @@ export default class CreateDis extends React.Component {
         let temp = this.state.disDB
         temp.dateExpired = date;
         this.setState({ disDB: temp })
-
     }
 
 
@@ -76,11 +75,33 @@ export default class CreateDis extends React.Component {
                 };
             }
         }
-
         for (var f = 0; f < arrPrBefore.length; f++) {
             arrPrAfter.push(arrPrBefore[f] - ((this.state.disDB.product[f].discount / 100) * arrPrBefore[f]))
         }
         this.forceUpdate()
+    }
+
+    updadeSearch(e) {
+        this.setState({
+            search: e.target.value,
+            offset: 0,
+            mLoading: true
+        }, () => {
+            axios.get(`/admin/prod`,
+                {
+                    params:
+                    {
+                        page: this.state.offset,
+                        search: this.state.search
+                    }
+                }
+            ).then(response =>
+                this.setState({
+                    data: response.data.doc,
+                    pageCount: response.data.total_count,
+                    mLoading:false
+                }));
+        })
     }
 
 
@@ -102,8 +123,6 @@ export default class CreateDis extends React.Component {
                 that.setState({ loading: true }, () => {
                     that.componentWillMount();
                 });
-
-
             })
     }
 
@@ -113,9 +132,6 @@ export default class CreateDis extends React.Component {
         let temp = this.state.disDB
         temp.disCode = random;
         this.setState({ disDB: temp })
-
-
-
         if (!!this.state.disDB.disCode) {
             axios.get(`/admin/discount/${this.state.disDB.disCode}`)
                 .then(response => {
@@ -126,11 +142,8 @@ export default class CreateDis extends React.Component {
                     this.setState({ loading: true }, () => {
                         this.componentWillMount();
                     });
-
-
                 })
         }
-        else { }
     }
 
     handleDeleteProd(e) {
@@ -159,11 +172,8 @@ export default class CreateDis extends React.Component {
                     this.setState({ loading: true }, () => {
                         this.componentWillMount();
                     });
-
-
                 })
         }
-        else { }
     }
 
     handleDeleteProd(e) {
@@ -182,8 +192,14 @@ export default class CreateDis extends React.Component {
 
 
     componentWillMount() {
+        //*isLogged*//
+        axios.post('/').then(response => {
+            if (response.data.Logged === false) {
+                browserHistory.push('/admin/login')
+            }
+        })
+        //*isLogged*//
         var that = this;
-
         if (this.props.location.state) {
             axios.get(`/admin/discount/${this.props.location.state}`)
                 .then(response => {
@@ -193,13 +209,48 @@ export default class CreateDis extends React.Component {
                         dateExpired: moment(),
                         product: [],
                         loading: false,
+                        mLoading: true,
                         pBefore: '',
                         pAfter: '',
                         arrPrBefore: [],
                         arrPrAfter: [],
                         arrImg: []
                     })
-                });
+                })
+                .then(() => {
+                    var titleArr = []
+                    this.state.disDB.product.map((item) => { titleArr.push(item.prodTitle) })
+                    if (titleArr.length !== 0) {
+                        axios.post(`/admin/prod`, {
+                            titleArr: titleArr
+                        })
+                            .then(response => {
+                                that.setState({ allProd: response.data})
+                                that.getPrices()
+                            })
+                    }
+                })
+                .then(() => {
+                    this.setState({
+                        offset: 0
+                    }, () => {
+                        axios.get(`/admin/prod`,
+                            {
+                                params:
+                                {
+                                    page: this.state.offset,
+                                    search: ""
+                                }
+                            }
+                        ).then(response =>
+                            this.setState({
+                                data: response.data.doc,
+                                pageCount: response.data.total_count,
+                                 mLoading: false 
+                            }));
+                    })
+                }
+                )
         }
         else {
             that.setState({
@@ -212,27 +263,20 @@ export default class CreateDis extends React.Component {
                 pAfter: '',
                 arrPrBefore: [],
                 arrPrAfter: [],
-                arrImg: []
+                arrImg: [],
+                mLoading:false
             });
         }
-
-        axios.get('/admin/prod')
-            .then(response => {
-                that.setState({ allProd: response.data }, () => { that.getPrices() })
-            })
     }
 
 
     render() {
-
-
         return (
             <div>
                 <div className="mui-container">
                     <div className="mui-row">
                         <div className="mui-col-md-1"></div>
                         <div className="mui-col-md-10">
-
 
                             <div className="mui-panel admin-miu-panel">
                                 {this.state.loading ? (<div className="mui--text-center"><Spinner /></div>) : (
@@ -249,9 +293,9 @@ export default class CreateDis extends React.Component {
                                                         required />
                                                     <label>Discount Code</label>
                                                 </div>
+
                                                 <button className="mui-btn mui-btn--primary disc-btn-wrap" onClick={this.handleRefresh.bind(this)}><i class="material-icons">autorenew</i></button>
                                                 <button className="mui-btn mui-btn--primary disc-btn-wrap" onClick={this.handleSearchDiscount.bind(this)}><i class="material-icons">done</i></button>
-
 
                                                 <div className="DatePicker-wrap large-input">
                                                     <label>Date, when code expired</label>
@@ -270,17 +314,18 @@ export default class CreateDis extends React.Component {
                                             <form class="mui-form--inline" onSubmit={(e) => this.handleSubmit(e)} >
 
                                                 <div className="mui-textfield large-input marg-right prod-name-main">
-                                                    <input list="name" onChange={(e) => { this.handleProdTitle(e) }} required />
+                                                    <input list="name" onChange={this.updadeSearch.bind(this)} onSelect={this.handleProdTitle.bind(this)} required />
                                                     <label>Product name</label>
                                                     <datalist id="name">
                                                         {
-                                                            this.state.allProd.map((item, i) => {
+                                                            this.state.data.map((item, i) => {
                                                                 return (<option key={i}>{item.title}</option>)
                                                             })
                                                         }
                                                     </datalist>
                                                 </div>
 
+                                                {this.state.mLoading ? (<div class="small-spin"><Spinner /></div>) : (<div class="small-spin"><i class="material-icons">done</i></div>)}
 
                                                 <div className="mui-textfield large-input inprice marg-right">
                                                     <input type="text" value={`$${(this.state.pBefore / 100).toFixed(2)}`} disabled />
@@ -302,7 +347,6 @@ export default class CreateDis extends React.Component {
                                                 <button className="mui-btn mui-btn--primary disc-btn-wrap" ><i class="material-icons">done_all</i></button>
                                             </form>
                                         </div>
-
 
                                         <div className="mui-panel">
                                             {this.state.disDB.product.map((item, i) =>
@@ -336,7 +380,6 @@ export default class CreateDis extends React.Component {
                                                             <input type="text" value={`$${((this.state.arrPrAfter[i]) / 100).toFixed(2)}`} disabled />
                                                             <label>Price after</label>
                                                         </div>
-
 
                                                         <button className="mui-btn mui-btn--danger disc-btn-wrap" value={i} onClick={this.handleDeleteProd.bind(this)}><i class="material-icons">delete_forever</i></button>
                                                     </form>

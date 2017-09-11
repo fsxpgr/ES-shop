@@ -4,7 +4,7 @@ const dbProduct = require('../db/dbProduct');
 const dbDiscount = require('../db/dbDiscount');
 const dbOrder = require('../db/dbOrder');
 
-var isLogged = function (req, res, next) {
+var isLogged = (req, res, next) => {
   if (req.user) {
     if (req.user.name == "Admin") {
       next();
@@ -83,7 +83,12 @@ module.exports = (app) => {
   // discount routes
   app.get('/admin/prod', isLogged,
     (req, res) => {
-      dbProduct.allList(req, res);
+      dbProduct.getPaginatedItemsDis(req, res);
+    }
+  );
+  app.post('/admin/prod', isLogged,
+    (req, res) => {
+      dbProduct.getDisProd(req, res);
     }
   );
 

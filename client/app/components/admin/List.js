@@ -28,9 +28,9 @@ export default class List extends React.Component {
 					that.componentWillMount();
 				});;
 			})
-			.catch(function (error) {
-				console.log(error);
-			});
+			.catch(error =>
+				console.log(error)
+			);
 	}
 
 	handleClickEdit(e, s) {
@@ -57,6 +57,13 @@ export default class List extends React.Component {
 	}
 
 	componentWillMount() {
+		//*isLogged*//
+		axios.post('/').then(response => {
+			if (response.data.Logged === false) {
+				browserHistory.push('/admin/login')
+			}
+		})
+		//*isLogged*//
 		this.setState({ isLoading: true });
 		axios.get(`/admin/product?page=${this.state.offset}`).then(response =>
 			this.setState({ data: response.data.doc, pageCount: response.data.total_count, loading: false }));
@@ -68,7 +75,7 @@ export default class List extends React.Component {
 		this.setState({
 			search: event.target.value,
 			offset: 0
-		}, function () {
+		}, () => {
 			axios.get(`/admin/product`,
 				{
 					params:
@@ -87,13 +94,11 @@ export default class List extends React.Component {
 
 	render() {
 		var data = this.state.data;
-		if (data === undefined) { browserHistory.push('/admin/login'); return }
 		return (
 
 			<div>
 				<div className="mui-container">
 					<div className="mui-panel admin-miu-panel no-padding">
-
 
 						<div className="mui-panel search-bar">
 							<div class="mui-textfield search-wrap">

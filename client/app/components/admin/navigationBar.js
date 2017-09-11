@@ -4,8 +4,6 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 
 export default class NavigationBar extends React.Component {
-
-
   render() {
 
     const loggedAsAdmin = (
@@ -47,7 +45,6 @@ export default class NavigationBar extends React.Component {
         </table>
       </header>
     );
-
 
     return (
       <div>

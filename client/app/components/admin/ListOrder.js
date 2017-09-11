@@ -27,7 +27,6 @@ export default class ListOrder extends React.Component {
         });
     };
 
-
     updateSearch(event) {
         this.setState({
             search: event.target.value,
@@ -49,18 +48,21 @@ export default class ListOrder extends React.Component {
         })
     }
 
-
     componentWillMount() {
+        //*isLogged*//
+        axios.post('/').then(response => {
+            if (response.data.Logged === false) {
+                browserHistory.push('/admin/login')
+            }
+        })
+        //*isLogged*//
         axios.get(`/admin/order?page=${this.state.offset}`).then(response => {
             this.setState({ data: response.data.doc, pageCount: response.data.total_count, loading: false })
         });
     }
 
     render() {
-
         return (
-
-
             <div className="mui-container">
                 <div className="mui-panel admin-miu-panel no-padding">
 
@@ -99,25 +101,27 @@ export default class ListOrder extends React.Component {
 
 
                                                 <div className="mui-col-md-4">
-
-                                                    <div class="mui--text-dark mui--text-body1">Id</div>
+                                                    <div class="mui--text-dark mui--text-body1">Order id</div>
+                                                    <div class="mui--text-dark mui--text-body1">User id</div>
                                                     <div class="mui--text-dark mui--text-body1">Status</div>
                                                     <div class="mui--text-dark mui--text-body1">Total summ</div>
                                                     <div class="mui--text-dark mui--text-body1">Order time</div>
-
                                                 </div>
-                                                <div className="mui-col-md-8">
 
-                                                    <div className=" mui--text-dark mui--text-body1">{item._id}</div>
+                                                <div className="mui-col-md-8">
+                                                    <div className=" mui--text-dark mui--text-body1">{item.orderId}</div>
+                                                    <div className=" mui--text-dark mui--text-body1">{item.userId}</div>
                                                     <div className=" mui--text-dark mui--text-body1">
 
                                                         <div>
                                                             {(() => {
                                                                 switch (item.status) {
                                                                     case 'delivering':
-                                                                        return (<i class="material-icons mui--text-dark mui--text-body1">local_shipping</i>)
+                                                                        return (<span><i class="material-icons mui--text-dark mui--text-body1">local_shipping</i> In delivering</span>)
+                                                                    case 'paid':
+                                                                        return (<span><i class="material-icons mui--text-dark mui--text-body1">monetization_on</i> Paid</span>)
                                                                     default:
-                                                                        return (<i class="material-icons mui--text-dark mui--text-body1">done_all</i>)
+                                                                        return (<span><i class="material-icons mui--text-dark mui--text-body1">done_all</i> Done</span>)
                                                                 }
                                                             })()}
                                                         </div>
@@ -141,7 +145,6 @@ export default class ListOrder extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-
                                 )}
                             </div>
                         )}
@@ -163,14 +166,7 @@ export default class ListOrder extends React.Component {
                         />
                     </div>
                 </div>
-
             </div>
-
-
-
-
-
-
         );
     }
 }

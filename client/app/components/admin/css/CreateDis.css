@@ -374,6 +374,62 @@
       margin-left: 10px;
       }
 /* react-datepicker end */
+
+/* small-spinner end */
+.small-spin{
+  display: inline-block
+}
+
+.small-spin>div > .spinner{
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  border-top-color: transparent;
+  border-top-color: #3498db;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+  z-index: 100;
+  opacity: 0.8;
+  margin: 0px 0px;
+}
+
+.small-spin>div > .spinner::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  border-radius: 50%;
+  border: 5px solid transparent;
+  border-top-color: transparent;
+  border-top-color: #e74c3c;
+  -webkit-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+
+.small-spin>div > .spinner::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 5px solid transparent;
+      border-top-color: transparent;
+  border-top-color: #f9c922;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+.small-spin>.material-icons{
+  font-size: 35px !important;
+  color: #3498db !important;
+}
+/* small-spinner end */
+
 .block-1{
   display: block;
   text-align: center;
@@ -408,6 +464,12 @@
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0px 2px 0 rgba(0, 0, 0, 0.12);
 	background-color:#EEEEEE; height: 60px; width: 60px; color:black;
 }
+
 .disc-btn-wrap{
   padding: 0 15px !important;
 }
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 100;
+}
+

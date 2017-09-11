@@ -17,15 +17,11 @@ exports.createDiscount = (data) => {
         }
     })
 }
+
 exports.listDiscount = (req, res) => {
-    Discount.find({},
-        (err, data) => {
-            if (data)
-                res.json(data)
-            else
-                console.log(err)
-        }
-    )
+    Discount.find({})
+        .then(() =>
+            res.json(data))
 }
 
 exports.deleteProdDiscount = (data) => {
@@ -37,28 +33,23 @@ exports.deleteProdDiscount = (data) => {
 
 
 exports.findDiscount = (req) => {
-    return Discount.findOne({ disCode: req.disCode }).exec().then((doc) => {
-        if (doc) {
-            return doc
+    return Discount.findOne({ disCode: req.disCode }).exec().then((data) => {
+        if (data) {
+            return data
         }
         else {
-            var ss = { disCode: req.disCode, product: [] }
-            return ss
+            var newDis = { disCode: req.disCode, product: [] }
+            return newDis
         }
-    }
-    )
+    })
 }
 
 exports.deleteDiscount = (disCode) => {
-    return Discount.find({ disCode: disCode }).remove().exec()
+    return Discount.find({ disCode: disCode }).remove()
 }
-
-
-
 
 exports.listDiscount = (req, res) => {
     var filter = req.query.search ? req.query.search : '';
-    /*serch filter*/
     var flag = 'gi'
     filter = "^(.*?)(" + filter + ")(.*)$";
     var regex = new RegExp(filter, flag);

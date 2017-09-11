@@ -56,7 +56,6 @@ class App extends React.Component {
       })
     );
 
-
     return (
       <div className="container">
         <NavigationBar
@@ -68,6 +67,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 export default App;

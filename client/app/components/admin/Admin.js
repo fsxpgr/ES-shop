@@ -13,16 +13,14 @@ export default class Admin extends React.Component {
 
 
     componentWillMount() {
+        //*isLogged*//
         axios.post('/').then(response => {
             if (response.data.Logged === false) {
                 browserHistory.push('/admin/login')
             }
-
         })
+        //*isLogged*//
     }
-
-
-
 
     render() {
         return (
@@ -30,7 +28,6 @@ export default class Admin extends React.Component {
                 <div className='admin-miu-panel'>
                   
                     <div className="mui-row">
-                        {/* <div className="mui-col-md-2"></div> */}
                         <div className="mui-col-md-12">
                             <div className="mui-panel marg-top">
                                 <div className="mui-row">
@@ -86,7 +83,6 @@ export default class Admin extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="mui-col-md-2"></div> */}
                     </div>
                 </div>
             </div>
