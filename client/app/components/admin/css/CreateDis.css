@@ -473,3 +473,11 @@ input::-webkit-calendar-picker-indicator {
   opacity: 100;
 }
 
+
+
+nput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

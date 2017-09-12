@@ -334,7 +334,7 @@ export default class CreateDis extends React.Component {
 
 
                                                 <div className="mui-textfield large-input indisc marg-right">
-                                                    <input type="text" defaultValue="0" onChange={(e) => { this.handleProdDisc(e) }} pattern="^([0-9][0-9]{0,1})$" />
+                                                    <input type="number" defaultValue="0" onChange={(e) => { this.handleProdDisc(e) }} min="1" max="99" />
                                                     <label>Discount, %</label>
 
                                                 </div>
