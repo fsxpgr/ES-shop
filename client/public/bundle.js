@@ -29218,7 +29218,7 @@
 
 
 	// module
-	exports.push([module.id, "/* HARDCODE  */     \r\nbody{\r\n    background-color: #EEEEEE !important;\r\n}\r\n\r\n*{\r\n    font-family: Roboto, sans-serif;\r\n}\r\n\r\n/* index page styles start */\r\n.marg-top{\r\n    margin-top: 15px;\r\n}\r\n\r\n.admin-card {\r\n    padding: 20px !important;\r\n    width: 312px;\r\n    height: 150px;\r\n    color: white !important;\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n    text-align: center;\r\n}\r\n\r\n.admin-card:hover{\r\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n}\r\n\r\n.admin-card > .material-icons{\r\n    font-size: 60px !important;\r\n}\r\n\r\n.card1{\r\n    background-color: #4B46C4 !important;\r\n}\r\n\r\n.card2{\r\n    background-color: #413BBE !important;\r\n}\r\n\r\n.card3{\r\n    background-color: #372FB8 !important;\r\n}       \r\n.card4{\r\n    background-color: #2C24B2 !important;\r\n}\r\n.card5{\r\n    background-color: #2218AC !important;\r\n}\r\n.card6{\r\n    background-color: #180DA6 !important;\r\n} \r\n/* index page styles end */\r\n\r\n/* header styles start */\r\n#header{\r\n    background-color: #605DD0;\r\n    position: fixed !important;\r\n    width: 100%;\r\n    left: 0 !important;\r\n    z-index: 999;\r\n}\r\n\r\n.t-head{\r\n    height: 65px !important;\r\n}\r\n.i-left{\r\n    vertical-align: middle !important;\r\n    font-size: 70px !important;\r\n}\r\n.i-right{\r\n    vertical-align: middle  !important;\r\n    font-size: 45px !important;\r\n    height: 52px  !important;\r\n    padding: 15px  !important;\r\n}\r\n\r\n.nav-click{\r\n    cursor: pointer;\r\n}\r\n\r\n/* header styles end */\r\n\r\n.admin-miu-panel{\r\n    margin-top: 90px !important\r\n} \r\n\r\n.no-padding{\r\n    padding: 0px !important;\r\n}\r\n\r\n.hide {\r\n    position: relative;    \r\n    top: -9999px !important;\r\n    left: -9999px !important;\r\n }", ""]);
+	exports.push([module.id, "/* HARDCODE  */     \r\nbody{\r\n    background-color: #EEEEEE !important;\r\n}\r\n\r\n*{\r\n    font-family: Roboto, sans-serif;\r\n}\r\n\r\n/* index page styles start */\r\n.marg-top{\r\n    margin-top: 15px;\r\n}\r\n\r\n.admin-card {\r\n    padding: 20px !important;\r\n    width: 312px;\r\n    height: 150px;\r\n    color: white !important;\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n    text-align: center;\r\n}\r\n\r\n.admin-card:hover{\r\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n}\r\n\r\n.admin-card > .material-icons{\r\n    font-size: 60px !important;\r\n}\r\n\r\n.card1{\r\n    background-color: #4B46C4 !important;\r\n}\r\n\r\n.card2{\r\n    background-color: #413BBE !important;\r\n}\r\n\r\n.card3{\r\n    background-color: #372FB8 !important;\r\n}       \r\n.card4{\r\n    background-color: #2C24B2 !important;\r\n}\r\n.card5{\r\n    background-color: #2218AC !important;\r\n}\r\n.card6{\r\n    background-color: #180DA6 !important;\r\n} \r\n/* index page styles end */\r\n\r\n/* header styles start */\r\n#header{\r\n    background-color: #605DD0;\r\n    position: fixed !important;\r\n    width: 100%;\r\n    left: 0 !important;\r\n    z-index: 999;\r\n}\r\n\r\n.t-head{\r\n    height: 65px !important;\r\n}\r\n.i-left{\r\n    vertical-align: middle !important;\r\n    font-size: 70px !important;\r\n}\r\n.i-right{\r\n    vertical-align: middle  !important;\r\n    font-size: 45px !important;\r\n    height: 52px  !important;\r\n    padding: 15px  !important;\r\n}\r\n\r\n.nav-click{\r\n    cursor: pointer;\r\n}\r\n\r\n/* header styles end */\r\n\r\n.admin-miu-panel{\r\n    margin-top: 90px !important\r\n} \r\n\r\n.no-padding{\r\n    padding: 0px !important;\r\n}\r\n\r\n.hide {\r\n    position: relative;    \r\n    top: -9999px !important;\r\n    left: -9999px !important;\r\n }\r\n\r\n.pad-5{\r\n    padding: 5px !important;\r\n }", ""]);
 
 	// exports
 
@@ -29814,7 +29814,8 @@
 	        _this.state = {
 	            file: '',
 	            data: { properties: [], tags: [], img: [] },
-	            loading: true
+	            loading: true,
+	            mLoading: false
 	        };
 	        _this.handleChange = _this.handleChange.bind(_this);
 	        _this.handleTag = _this.handleTag.bind(_this);
@@ -29945,9 +29946,12 @@
 	    }, {
 	        key: 'handleSubmit',
 	        value: function handleSubmit(e) {
+	            var _this2 = this;
+
 	            e.preventDefault();
 	            var data = this.state.data;
 	            if (this.props.location.state) {
+	                this.setState({ loading: true });
 	                _axios2.default.put('/admin/product/' + this.props.location.state, {
 	                    title: data.title,
 	                    desc: data.desc,
@@ -29957,11 +29961,16 @@
 	                    properties: data.properties,
 	                    accessible: this.state.accessible || false
 	                }).then(function (response) {
-	                    return _reactRouter.browserHistory.push("/admin/list");
+	                    _reactRouter.browserHistory.push({
+	                        pathname: '/admin/create',
+	                        state: _this2.props.location.state
+	                    });
+	                    _this2.componentWillMount();
 	                }).catch(function (error) {
 	                    return console.log(error);
 	                });
 	            } else {
+	                this.setState({ loading: true });
 	                _axios2.default.post('/admin/product', {
 	                    title: data.title,
 	                    desc: data.desc,
@@ -29971,7 +29980,12 @@
 	                    properties: data.properties,
 	                    accessible: this.state.accessible || false
 	                }).then(function (response) {
-	                    return _reactRouter.browserHistory.push("admin/list");
+
+	                    _reactRouter.browserHistory.push({
+	                        pathname: '/admin/create',
+	                        state: response.data._id
+	                    });
+	                    _this2.componentWillMount();
 	                }).catch(function (error) {
 	                    return console.log(error);
 	                });
@@ -29980,13 +29994,13 @@
 	    }, {
 	        key: 'handleFileChange',
 	        value: function handleFileChange(e) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            e.preventDefault();
 	            var reader = new FileReader();
 	            var file = e.target.files[0];
 	            reader.onloadend = function () {
-	                _this2.setState({
+	                _this3.setState({
 	                    file: reader.result
 	                });
 	            };
@@ -29995,9 +30009,12 @@
 	    }, {
 	        key: 'handleFile',
 	        value: function handleFile(e) {
+	            var _this4 = this;
+
 	            e.preventDefault();
 	            var that = this;
 	            if (!!this.state.file) {
+	                this.setState({ mLoading: true });
 	                _axios2.default.post('/admin/product/file', {
 	                    title: this.state.data.title,
 	                    file: this.state.file
@@ -30006,6 +30023,7 @@
 	                    that.state.data.img = img.concat(response.data);
 	                    that.setState({ img: img, file: '' });
 	                    document.getElementById("Upload").reset(); //hardcode??
+	                    _this4.setState({ mLoading: false });
 	                }).catch(function (error) {
 	                    return console.log(error);
 	                });
@@ -30014,7 +30032,7 @@
 	    }, {
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
-	            var _this3 = this;
+	            var _this5 = this;
 
 	            //*isLogged*//
 	            _axios2.default.post('/').then(function (response) {
@@ -30026,16 +30044,16 @@
 
 	            if (this.props.location.state) {
 	                _axios2.default.get('/admin/product/' + this.props.location.state).then(function (response) {
-	                    _this3.setState({ file: '', data: response.data, loading: false });
+	                    _this5.setState({ file: '', data: response.data, loading: false, mLoading: false });
 	                });
 	            } else {
-	                this.setState({ file: '', data: { properties: [], tags: [], img: [], accessible: false }, loading: false });
+	                this.setState({ file: '', data: { properties: [], tags: [], img: [], accessible: false }, loading: false, mLoading: false });
 	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this4 = this;
+	            var _this6 = this;
 
 	            var data = this.state.data;
 	            var prop = this.state.data.properties;
@@ -30068,7 +30086,7 @@
 	                                        _react2.default.createElement('input', {
 	                                            defaultValue: data.title,
 	                                            onChange: function onChange(e) {
-	                                                _this4.handleChange(e, "title");
+	                                                _this6.handleChange(e, "title");
 	                                            },
 	                                            pattern: '^.{0,50}$',
 	                                            required: true }),
@@ -30087,7 +30105,7 @@
 	                                            name: 'desc',
 	                                            defaultValue: data.desc,
 	                                            onChange: function onChange(e) {
-	                                                _this4.handleChange(e, "desc");
+	                                                _this6.handleChange(e, "desc");
 	                                            },
 	                                            pattern: '^.{0,300}$',
 	                                            required: true }),
@@ -30111,7 +30129,7 @@
 	                                            name: 'price',
 	                                            value: (data.price / 100).toFixed(2),
 	                                            onChange: function onChange(e) {
-	                                                _this4.handleChange(e, "price");
+	                                                _this6.handleChange(e, "price");
 	                                            },
 	                                            required: true }),
 	                                        _react2.default.createElement(
@@ -30149,16 +30167,29 @@
 	                                            type: 'file',
 	                                            value: this.state.filee,
 	                                            onChange: function onChange(e) {
-	                                                return _this4.handleFileChange(e);
+	                                                return _this6.handleFileChange(e);
 	                                            } }),
 	                                        _react2.default.createElement(
 	                                            'button',
 	                                            { className: 'mui-btn mui-btn--primary key-S3',
 	                                                type: 'submit',
 	                                                onClick: function onClick(e) {
-	                                                    return _this4.handleFile(e);
+	                                                    return _this6.handleFile(e);
 	                                                } },
 	                                            'Upload Image to S3'
+	                                        ),
+	                                        this.state.mLoading ? _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'small-spin pad-5' },
+	                                            _react2.default.createElement(_Spinner2.default, null)
+	                                        ) : _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'small-spin pad-5' },
+	                                            _react2.default.createElement(
+	                                                'i',
+	                                                { className: 'material-icons' },
+	                                                'done'
+	                                            )
 	                                        )
 	                                    ),
 	                                    _react2.default.createElement(
@@ -30224,7 +30255,7 @@
 	                                                    ),
 	                                                    _react2.default.createElement(
 	                                                        'button',
-	                                                        { className: 'mui-btn mui-btn--danger key-btn', value: i, onClick: _this4.handleDeleteProp },
+	                                                        { className: 'mui-btn mui-btn--danger key-btn', value: i, onClick: _this6.handleDeleteProp },
 	                                                        'Delete key'
 	                                                    )
 	                                                )
@@ -30251,7 +30282,7 @@
 	                                                    name: 'name',
 	                                                    defaultValue: prop.name,
 	                                                    onChange: function onChange(e) {
-	                                                        _this4.handleChange(e, "name");
+	                                                        _this6.handleChange(e, "name");
 	                                                    } }),
 	                                                _react2.default.createElement(
 	                                                    'label',
@@ -30268,7 +30299,7 @@
 	                                                    name: 'value',
 	                                                    defaultValue: prop.value,
 	                                                    onChange: function onChange(e) {
-	                                                        _this4.handleChange(e, "value");
+	                                                        _this6.handleChange(e, "value");
 	                                                    } }),
 	                                                _react2.default.createElement(
 	                                                    'label',

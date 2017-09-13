@@ -1,5 +1,4 @@
 const passport = require('passport');
-const dbUser = require('../db/dbUser');
 const dbProduct = require('../db/dbProduct');
 const dbDiscount = require('../db/dbDiscount');
 const dbOrder = require('../db/dbOrder');

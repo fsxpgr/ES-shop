@@ -15,6 +15,7 @@ export default class Create extends React.Component {
             file: '',
             data: { properties: [], tags: [], img: [] },
             loading: true,
+            mLoading: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleTag = this.handleTag.bind(this);
@@ -80,7 +81,7 @@ export default class Create extends React.Component {
                                 that.componentWillMount();
                             });
                         })
-                        .catch(error => 
+                        .catch(error =>
                             console.log(error)
                         );
                 }
@@ -131,7 +132,8 @@ export default class Create extends React.Component {
         })
             .then(response =>
                 that.setState({ loading: true }, () => {
-                    that.componentWillMount()}
+                    that.componentWillMount()
+                }
                 )
             )
             .catch(error =>
@@ -147,6 +149,7 @@ export default class Create extends React.Component {
         e.preventDefault();
         var data = this.state.data;
         if (this.props.location.state) {
+            this.setState({ loading: true })
             axios.put('/admin/product/' + this.props.location.state, {
                 title: data.title,
                 desc: data.desc,
@@ -156,14 +159,19 @@ export default class Create extends React.Component {
                 properties: data.properties,
                 accessible: this.state.accessible || false,
             })
-                .then(response => 
-                    browserHistory.push("/admin/list")
-                )
+                .then(response => {
+                    browserHistory.push({
+                        pathname: '/admin/create',
+                        state: this.props.location.state
+                    })
+                    this.componentWillMount()
+                })
                 .catch(error =>
                     console.log(error)
                 );
         }
         else {
+            this.setState({ loading: true })
             axios.post('/admin/product', {
                 title: data.title,
                 desc: data.desc,
@@ -173,9 +181,14 @@ export default class Create extends React.Component {
                 properties: data.properties,
                 accessible: this.state.accessible || false,
             })
-                .then(response =>
-                    browserHistory.push("admin/list")
-                )
+                .then(response => {
+
+                    browserHistory.push({
+                        pathname: '/admin/create',
+                        state: response.data._id
+                    })
+                    this.componentWillMount()
+                })
                 .catch(error =>
                     console.log(error)
                 );
@@ -198,6 +211,7 @@ export default class Create extends React.Component {
         e.preventDefault();
         var that = this;
         if (!!this.state.file) {
+            this.setState({ mLoading: true })
             axios.post('/admin/product/file', {
                 title: this.state.data.title,
                 file: this.state.file
@@ -207,6 +221,7 @@ export default class Create extends React.Component {
                     that.state.data.img = img.concat(response.data)
                     that.setState({ img, file: '' })
                     document.getElementById("Upload").reset(); //hardcode??
+                    this.setState({ mLoading: false })
                 }).catch(error =>
                     console.log(error)
                 );
@@ -225,11 +240,11 @@ export default class Create extends React.Component {
         if (this.props.location.state) {
             axios.get('/admin/product/' + this.props.location.state)
                 .then(response => {
-                    this.setState({ file: '', data: response.data, loading: false })
+                    this.setState({ file: '', data: response.data, loading: false, mLoading: false })
                 });
         }
         else {
-            this.setState({ file: '', data: { properties: [], tags: [], img: [], accessible: false }, loading: false });
+            this.setState({ file: '', data: { properties: [], tags: [], img: [], accessible: false }, loading: false, mLoading: false });
         }
     }
 
@@ -309,6 +324,7 @@ export default class Create extends React.Component {
                                             <button className="mui-btn mui-btn--primary key-S3"
                                                 type="submit"
                                                 onClick={(e) => this.handleFile(e)}>Upload Image to S3</button>
+                                            {this.state.mLoading ? (<div class="small-spin pad-5"><Spinner /></div>) : (<div class="small-spin pad-5"><i class="material-icons">done</i></div>)}
                                         </form>
 
 

@@ -4,14 +4,14 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const config = require('./config');
 var controllers = require('./controllers');
-const mongoose = require ('mongoose');
+const mongoose = require('mongoose');
 const passport = require('passport');
 var favicon = require('serve-favicon')
 const LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
-app.use(bodyParser.json({limit: '20mb'}));
+app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -32,33 +32,34 @@ app.use(passport.session());
 const User = require('./dbSchemas/user');
 
 passport.use(new LocalStrategy(
-	{usernameField:"email", passwordField:"password"},
-  function(email, password, done) {
-    User.findOne({ email: email }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-		user.password = undefined;
-      return done(null, user);
-    });
-  }
+	{ usernameField: "email", passwordField: "password" },
+	(email, password, done) => {
+		User.findOne({ email: email }, (err, user) => {
+			if (err) { return done(err); }
+			if (!user) { return done(null, false); }
+			if (!user.verifyPassword(password)) { return done(null, false); }
+			user.password = undefined;
+			return done(null, user);
+		});
+	}
 ));
-	
+
 passport.serializeUser(
-	function(User, done) {
-	done(null, User.id);
-}
+	(User, done) => {
+		done(null, User.id);
+	}
 );
-  
+
 passport.deserializeUser(
-	function(id, done) {
-	User.findById(id, function(err, User) {
-	  done(err, User);
-	});}
+	(id, done) => {
+		User.findById(id, (err, User) => {
+			done(err, User);
+		});
+	}
 );
 
 // DB connection
-mongoose.connect(config.dbURL,{useMongoClient:true}, console.log("Connected to mongoDB"));
+mongoose.connect(config.dbURL, { useMongoClient: true }, console.log("Connected to mongoDB"));
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
@@ -70,4 +71,4 @@ app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-module.exports.start = () => app.listen(config.port, () => console.log('App listening on port '+ config.port));
+module.exports.start = () => app.listen(config.port, () => console.log('App listening on port ' + config.port));
