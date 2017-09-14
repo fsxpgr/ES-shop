@@ -279,7 +279,7 @@ export default class Create extends React.Component {
                                                 name="desc"
                                                 defaultValue={data.desc}
                                                 onChange={(e) => { this.handleChange(e, "desc") }}
-                                                pattern="^.{0,300}$"
+                                                pattern="^.{0,200}$"
                                                 required />
                                             <label>Description</label>
                                         </div>
@@ -378,6 +378,7 @@ export default class Create extends React.Component {
                                                         className="key-name"
                                                         type="text"
                                                         name="name"
+                                                        pattern="^.{0,50}$"
                                                         defaultValue={prop.name}
                                                         onChange={(e) => { this.handleChange(e, "name") }} />
                                                     <label>Property name:</label>
@@ -388,6 +389,7 @@ export default class Create extends React.Component {
                                                         className="key-value"
                                                         type="text"
                                                         name="value"
+                                                        pattern="^.{0,50}$"
                                                         defaultValue={prop.value}
                                                         onChange={(e) => { this.handleChange(e, "value") }} />
                                                     <label>Property value:</label>

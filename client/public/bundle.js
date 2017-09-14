@@ -27568,7 +27568,11 @@
 	                                                )
 	                                            )
 	                                        )
-	                                    ),
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'mui-row' },
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'mui-col-md-4' },
@@ -29218,7 +29222,7 @@
 
 
 	// module
-	exports.push([module.id, "/* HARDCODE  */     \r\nbody{\r\n    background-color: #EEEEEE !important;\r\n}\r\n\r\n*{\r\n    font-family: Roboto, sans-serif;\r\n}\r\n\r\n/* index page styles start */\r\n.marg-top{\r\n    margin-top: 15px;\r\n}\r\n\r\n.admin-card {\r\n    padding: 20px !important;\r\n    width: 312px;\r\n    height: 150px;\r\n    color: white !important;\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n    text-align: center;\r\n}\r\n\r\n.admin-card:hover{\r\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n}\r\n\r\n.admin-card > .material-icons{\r\n    font-size: 60px !important;\r\n}\r\n\r\n.card1{\r\n    background-color: #4B46C4 !important;\r\n}\r\n\r\n.card2{\r\n    background-color: #413BBE !important;\r\n}\r\n\r\n.card3{\r\n    background-color: #372FB8 !important;\r\n}       \r\n.card4{\r\n    background-color: #2C24B2 !important;\r\n}\r\n.card5{\r\n    background-color: #2218AC !important;\r\n}\r\n.card6{\r\n    background-color: #180DA6 !important;\r\n} \r\n/* index page styles end */\r\n\r\n/* header styles start */\r\n#header{\r\n    background-color: #605DD0;\r\n    position: fixed !important;\r\n    width: 100%;\r\n    left: 0 !important;\r\n    z-index: 999;\r\n}\r\n\r\n.t-head{\r\n    height: 65px !important;\r\n}\r\n.i-left{\r\n    vertical-align: middle !important;\r\n    font-size: 70px !important;\r\n}\r\n.i-right{\r\n    vertical-align: middle  !important;\r\n    font-size: 45px !important;\r\n    height: 52px  !important;\r\n    padding: 15px  !important;\r\n}\r\n\r\n.nav-click{\r\n    cursor: pointer;\r\n}\r\n\r\n/* header styles end */\r\n\r\n.admin-miu-panel{\r\n    margin-top: 90px !important\r\n} \r\n\r\n.no-padding{\r\n    padding: 0px !important;\r\n}\r\n\r\n.hide {\r\n    position: relative;    \r\n    top: -9999px !important;\r\n    left: -9999px !important;\r\n }\r\n\r\n.pad-5{\r\n    padding: 5px !important;\r\n }", ""]);
+	exports.push([module.id, "/* HARDCODE  */     \r\nbody{\r\n    background-color: #EEEEEE !important;\r\n}\r\n\r\n*{\r\n    font-family: Roboto, sans-serif;\r\n}\r\n\r\n/* index page styles start */\r\n.marg-top{\r\n    margin-top: 15px;\r\n}\r\n\r\n.admin-card {\r\n    padding: 20px !important;\r\n    width: 312px;\r\n    height: 150px;\r\n    color: white !important;\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n    text-align: center;\r\n}\r\n\r\n.admin-card:hover{\r\n    margin: -5px !important;\r\n    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n}\r\n\r\n.admin-card > .material-icons{\r\n    font-size: 60px !important;\r\n}\r\n\r\n.card1{\r\n    background-color: #4B46C4 !important;\r\n}\r\n\r\n.card2{\r\n    background-color: #413BBE !important;\r\n}\r\n\r\n.card3{\r\n    background-color: #372FB8 !important;\r\n}       \r\n.card4{\r\n    background-color: #2C24B2 !important;\r\n}\r\n.card5{\r\n    background-color: #2218AC !important;\r\n}\r\n.card6{\r\n    background-color: #180DA6 !important;\r\n} \r\n/* index page styles end */\r\n\r\n/* header styles start */\r\n#header{\r\n    background-color: #605DD0;\r\n    position: fixed !important;\r\n    width: 100%;\r\n    left: 0 !important;\r\n    z-index: 999;\r\n}\r\n\r\n.t-head{\r\n    height: 65px !important;\r\n}\r\n.i-left{\r\n    vertical-align: middle !important;\r\n    font-size: 70px !important;\r\n}\r\n.i-right{\r\n    vertical-align: middle  !important;\r\n    font-size: 45px !important;\r\n    height: 52px  !important;\r\n    padding: 15px  !important;\r\n}\r\n\r\n.nav-click{\r\n    cursor: pointer;\r\n}\r\n\r\n/* header styles end */\r\n\r\n.admin-miu-panel{\r\n    margin-top: 90px !important\r\n} \r\n\r\n.no-padding{\r\n    padding: 0px !important;\r\n}\r\n\r\n.hide {\r\n    position: relative;    \r\n    top: -9999px !important;\r\n    left: -9999px !important;\r\n }\r\n\r\n.pad-5{\r\n    padding: 5px !important;\r\n }", ""]);
 
 	// exports
 
@@ -30107,7 +30111,7 @@
 	                                            onChange: function onChange(e) {
 	                                                _this6.handleChange(e, "desc");
 	                                            },
-	                                            pattern: '^.{0,300}$',
+	                                            pattern: '^.{0,200}$',
 	                                            required: true }),
 	                                        _react2.default.createElement(
 	                                            'label',
@@ -30280,6 +30284,7 @@
 	                                                    className: 'key-name',
 	                                                    type: 'text',
 	                                                    name: 'name',
+	                                                    pattern: '^.{0,50}$',
 	                                                    defaultValue: prop.name,
 	                                                    onChange: function onChange(e) {
 	                                                        _this6.handleChange(e, "name");
@@ -30297,6 +30302,7 @@
 	                                                    className: 'key-value',
 	                                                    type: 'text',
 	                                                    name: 'value',
+	                                                    pattern: '^.{0,50}$',
 	                                                    defaultValue: prop.value,
 	                                                    onChange: function onChange(e) {
 	                                                        _this6.handleChange(e, "value");
@@ -33037,7 +33043,7 @@
 
 
 	// module
-	exports.push([module.id, "/*pagination style start */\r\n.admin-pagination{\r\n    padding:15px; \r\n    text-align: center;\r\n}\r\n\r\n.admin-pagination>li{\r\n    display: inline-block;\r\n}\r\n.admin-link{\r\n    padding: 20px;\r\n    background-color:#2196F3;\r\n    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);\r\n    color: white;\r\n    cursor: pointer;\r\n    font-size:20px;\r\n}\r\n.admin-prev, .admin-nex{\r\n    padding: 15px 20px;\r\n    background-color:#2196F3;\r\n    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);\r\n    color: white;\r\n    cursor: pointer;\r\n    font-size:20px;\r\n}\r\n.admin-active> a{\r\n    background-color:#78909C;\r\n}\r\n\r\na:hover, a:active, a:focus{\r\n    text-decoration: none !important;\r\n    outline: none !important;\r\n}\r\n/*pagination style end */\r\n\r\n.admin-list-wrapper{\r\n    max-width:1300px !important;\r\n    padding-top: 0px !important;\r\n    padding-right: 0px !important;\r\n    padding-left: 0px !important;\r\n}\r\n.admin-product-item{\r\n    width: 170px;\r\n    height: 100px;\r\n    overflow: hidden;\r\n    word-break: normal;\r\n    \r\n} \r\n\r\n.admin-product-item > img{\r\n    height: 100px;\r\n    \r\n}\r\n\r\n.admin-btn-center{\r\n    margin: 20px 0;\r\n    display: inline-block;\r\n}\r\n\r\n.admin-ico-big{\r\n    font-size: 35px !important;\r\n    margin: 35px 0 !important;\r\n}\r\n\r\n.admin-inner-panel{\r\n    margin: 10px !important; \r\n}\r\n\r\n.wrap-padding{\r\n    padding-right:5px !important;\r\n    padding-left:5px !important;\r\n}\r\n\r\n\r\n/* Serch bar start */\r\n.search-bar{\r\n    margin: 10px !important;\r\n    padding: 5px !important;\r\n    height: 50px;\r\n}\r\n.search-wrap{\r\n    display: -webkit-inline-box !important;\r\n    display: -ms-inline-flexbox !important;\r\n    display: inline-flex !important;\r\n    width: 100%;\r\n}\r\n.search-wrap > i{\r\n    font-size: 35px;\r\n}\r\n.Search-box{\r\n    font-size: 25px !important;\r\n}\r\n/* Serch bar end */", ""]);
+	exports.push([module.id, "/*pagination style start */\r\n.admin-pagination{\r\n    padding:15px; \r\n    text-align: center;\r\n}\r\n\r\n.admin-pagination>li{\r\n    display: inline-block;\r\n}\r\n.admin-link{\r\n    padding: 20px;\r\n    background-color:#2196F3;\r\n    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);\r\n    color: white;\r\n    cursor: pointer;\r\n    font-size:20px;\r\n}\r\n.admin-prev, .admin-nex{\r\n    padding: 15px 20px;\r\n    background-color:#2196F3;\r\n    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);\r\n    color: white;\r\n    cursor: pointer;\r\n    font-size:20px;\r\n}\r\n.admin-active> a{\r\n    background-color:#78909C;\r\n}\r\n\r\na:hover, a:active, a:focus{\r\n    text-decoration: none !important;\r\n    outline: none !important;\r\n}\r\n/*pagination style end */\r\n\r\n.admin-list-wrapper{\r\n    max-width:1300px !important;\r\n    padding-top: 0px !important;\r\n    padding-right: 0px !important;\r\n    padding-left: 0px !important;\r\n}\r\n.admin-product-item{\r\n    width: 170px;\r\n    height: 100px;\r\n    overflow: hidden;\r\n    word-break: normal;\r\n    \r\n} \r\n\r\n.admin-product-item > img{\r\n    height: 100px;\r\n    \r\n}\r\n\r\n.admin-btn-center{\r\n    margin: 20px 0;\r\n    display: inline-block;\r\n}\r\n\r\n.admin-ico-big{\r\n    font-size: 35px !important;\r\n    margin: 35px 0 !important;\r\n}\r\n\r\n.admin-inner-panel{\r\n    margin: 10px !important; \r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n}\r\n.admin-inner-panel:hover{\r\n    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);\r\n    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\r\n}\r\n\r\n.wrap-padding{\r\n    padding-right:5px !important;\r\n    padding-left:5px !important;\r\n}\r\n\r\n\r\n/* Serch bar start */\r\n.search-bar{\r\n    margin: 10px !important;\r\n    padding: 5px !important;\r\n    height: 50px;\r\n}\r\n.search-wrap{\r\n    display: -webkit-inline-box !important;\r\n    display: -ms-inline-flexbox !important;\r\n    display: inline-flex !important;\r\n    width: 100%;\r\n}\r\n.search-wrap > i{\r\n    font-size: 35px;\r\n}\r\n.Search-box{\r\n    font-size: 25px !important;\r\n}\r\n/* Serch bar end */", ""]);
 
 	// exports
 
@@ -49513,6 +49519,7 @@
 	                                                        _this8.handleDisCode(e);
 	                                                    },
 	                                                    disabled: !(this.state.disDB.product.length == 0),
+	                                                    pattern: '^.{0,20}$',
 	                                                    required: true }),
 	                                                _react2.default.createElement(
 	                                                    'label',
@@ -49567,7 +49574,7 @@
 	                                            _react2.default.createElement(
 	                                                'div',
 	                                                { className: 'mui-textfield large-input marg-right prod-name-main' },
-	                                                _react2.default.createElement('input', { list: 'name', onChange: this.updadeSearch.bind(this), onSelect: this.handleProdTitle.bind(this), required: true }),
+	                                                _react2.default.createElement('input', { list: 'name', onChange: this.updadeSearch.bind(this), pattern: '^.{0,50}$', onSelect: this.handleProdTitle.bind(this), required: true }),
 	                                                _react2.default.createElement(
 	                                                    'label',
 	                                                    null,

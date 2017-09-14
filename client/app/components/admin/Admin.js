@@ -26,7 +26,7 @@ export default class Admin extends React.Component {
         return (
             <div className="mui-container ">
                 <div className='admin-miu-panel'>
-                  
+
                     <div className="mui-row">
                         <div className="mui-col-md-12">
                             <div className="mui-panel marg-top">
@@ -50,15 +50,17 @@ export default class Admin extends React.Component {
                                     <div className="mui-col-md-4">
                                         <Link to='/admin/list_order'>
                                             <div class="mui-panel admin-card card3">
-                                            <i class="material-icons">shopping_cart</i>
+                                                <i class="material-icons">shopping_cart</i>
                                                 <div className="mui--text-center mui--text-headline">Order history</div>
                                             </div>
                                         </Link>
                                     </div>
+                                </div>
+                                <div className="mui-row">
                                     <div className="mui-col-md-4">
                                         <Link to='/admin/create_discount'>
                                             <div class="admin-card card4">
-                                            <i class="material-icons">content_cut</i>
+                                                <i class="material-icons">content_cut</i>
                                                 <div className="mui--text-center mui--text-headline">Create discount</div>
                                             </div>
                                         </Link>
@@ -66,7 +68,7 @@ export default class Admin extends React.Component {
                                     <div className="mui-col-md-4">
                                         <Link to='/admin/list_discount'>
                                             <div class="admin-card card5">
-                                            <i class="material-icons">format_list_bulleted</i>
+                                                <i class="material-icons">format_list_bulleted</i>
                                                 <div className="mui--text-center mui--text-headline">Discounts list</div>
                                             </div>
                                         </Link>
@@ -74,12 +76,12 @@ export default class Admin extends React.Component {
                                     <div className="mui-col-md-4">
                                         <Link to='/admin/login'>
                                             <div class="admin-card card6" onClick={this.props.logout}>
-                                           <i class="material-icons">power_settings_new</i>
+                                                <i class="material-icons">power_settings_new</i>
                                                 <div className="mui--text-center mui--text-headline">Log out</div>
                                             </div>
                                         </Link>
                                     </div>
-              
+
                                 </div>
                             </div>
                         </div>

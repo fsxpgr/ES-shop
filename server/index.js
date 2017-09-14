@@ -7,6 +7,7 @@ var controllers = require('./controllers');
 const mongoose = require('mongoose');
 const passport = require('passport');
 var favicon = require('serve-favicon')
+const bcrypt = require ('bcrypt')
 const LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
@@ -31,18 +32,28 @@ app.use(passport.session());
 // configure passport
 const User = require('./dbSchemas/user');
 
+
+//
 passport.use(new LocalStrategy(
-	{ usernameField: "email", passwordField: "password" },
-	(email, password, done) => {
-		User.findOne({ email: email }, (err, user) => {
-			if (err) { return done(err); }
-			if (!user) { return done(null, false); }
-			if (!user.verifyPassword(password)) { return done(null, false); }
-			user.password = undefined;
-			return done(null, user);
-		});
-	}
+	{usernameField:"email", passwordField:"password"},
+  	function(email, password, done) {
+    User.findOne({ email: email }, function (err, user) {
+      if (err) {console.log('error in findone',err); return done(err); }
+	  if (!user) { console.log("not user found");return done(null, false); }
+	//   bcrypt password here
+	  bcrypt.compare( password, user.password, (err, res)=>{
+			if(err) return done(err);
+			if(res === false) {
+				return done(null,false)
+			}else{
+				return done(null, user)
+			}
+	  } )
+    //   return done(null, user);
+    });
+  }
 ));
+//
 
 passport.serializeUser(
 	(User, done) => {

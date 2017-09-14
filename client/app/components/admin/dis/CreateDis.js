@@ -290,6 +290,7 @@ export default class CreateDis extends React.Component {
                                                         value={this.state.disDB.disCode}
                                                         onChange={(e) => { this.handleDisCode(e) }}
                                                         disabled={!(this.state.disDB.product.length == 0)}
+                                                        pattern="^.{0,20}$"
                                                         required />
                                                     <label>Discount Code</label>
                                                 </div>
@@ -314,7 +315,7 @@ export default class CreateDis extends React.Component {
                                             <form class="mui-form--inline" onSubmit={(e) => this.handleSubmit(e)} >
 
                                                 <div className="mui-textfield large-input marg-right prod-name-main">
-                                                    <input list="name" onChange={this.updadeSearch.bind(this)} onSelect={this.handleProdTitle.bind(this)} required />
+                                                    <input list="name" onChange={this.updadeSearch.bind(this)} pattern="^.{0,50}$" onSelect={this.handleProdTitle.bind(this)} required />
                                                     <label>Product name</label>
                                                     <datalist id="name">
                                                         {

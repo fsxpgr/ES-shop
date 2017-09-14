@@ -5,7 +5,7 @@ const dbOrder = require('../db/dbOrder');
 
 var isLogged = (req, res, next) => {
   if (req.user) {
-    if (req.user.name == "Admin") {
+    if (req.user.name === "admin") {
       next();
     }
     return
